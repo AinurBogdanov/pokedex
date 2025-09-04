@@ -11,12 +11,38 @@ export type Pokemon = {
       };
     };
   };
+  stats: Stat[];
   weight: number;
-  id: number;
-  abilities: unknown;
   height: string;
+  id: number;
+
+  abilities: Abilities[];
+  types: Type[];
 };
 
 export type PokemonShortInfo = Pick<Pokemon, 'name'> & {
   url: string;
+};
+type Stat = {
+  base_stat: number;
+  effort: number;
+  stat: {
+    name: string;
+    url: string;
+  };
+};
+type Abilities = {
+  ability: {
+    name: string;
+    url: string;
+  };
+  is_hidden: boolean;
+  slot: number;
+};
+type Type = {
+  slot: number;
+  type: {
+    name: string;
+    url: string;
+  };
 };
