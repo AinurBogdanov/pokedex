@@ -1,0 +1,30 @@
+.pokemonsContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 3 колонки */
+  grid-auto-rows: 1fr;
+  gap: 10px;
+  font-family: 'Asimovian';
+}
+.pokemonCard {
+  // position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.43);
+  border-radius: 5px;
+  cursor: pointer;
+  overflow: hidden;
+  .imageCont {
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+    // max-height: 90%;
+  }
+  .name {
+    // position: absolute;
+    // bottom: 0;
+    // width: 100%;
+    // text-align: center;
+  }
+}

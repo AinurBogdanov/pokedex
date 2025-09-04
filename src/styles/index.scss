@@ -1,0 +1,19 @@
+@use './fonts.scss';
+@use './reset.scss';
+// @use './variables.scss';
+
+html {
+  font-family: 'Roboto';
+}
+#root {
+  height: 100%;
+}
+.wrapper {
+  width: 1250px;
+  margin: 0 auto;
+  height: 100%;
+}
+.h3 {
+  font-size: 18px;
+  margin: 10px 0;
+}
