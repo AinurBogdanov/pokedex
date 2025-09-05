@@ -10,7 +10,7 @@ type PokemonsResponse = {
 
 export const fetchWithPagination = async ({
   page = 0,
-  limit = 20,
+  limit = 30,
 }: {
   page: number;
   limit?: number;
