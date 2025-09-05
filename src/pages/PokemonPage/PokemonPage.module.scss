@@ -33,8 +33,8 @@
 }
 //stats
 .stats {
-  margin-top: 60px;
-  height: 300px;
+  margin-top: 20px;
+  height: 250px;
   border-radius: 10px;
   background-color: variables.$gray-bg-color;
   padding: 15px;
@@ -62,16 +62,21 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 180px;
+  height: 100%;
+}
+.statName {
+  height: 30px;
+}
+.stateFillFull,
+.stateFillEmpty {
+  height: 6%;
+  width: 100%;
+  border-radius: 2px;
 }
 .stateFillFull {
-  height: 7%;
-  width: 100%;
   background-color: rgb(63, 120, 233);
 }
 .stateFillEmpty {
-  height: 7%;
-  width: 100%;
   background-color: rgb(255, 255, 255);
 }
 //

@@ -27,7 +27,6 @@ export function PokemonPage() {
             <p className={styles.statHeading}>Stats</p>
             <div className={styles.statsBox}>
               {pokemon.stats.map((stat) => {
-                const name = stat.stat.name; // string
                 const baseStat = stat.base_stat; // 0 - 100
                 const fullQuantity = Math.floor(baseStat / 10); // baseStat === 68 so fullQuantity = 6 is true ?
                 const emptyQuantity = 10 - fullQuantity;
@@ -47,7 +46,7 @@ export function PokemonPage() {
                       {emptyEl()}
                       {fullEl()}
                     </div>
-                    <span>{name}</span>
+                    <span className={styles.statName}>{stat.stat.name}</span>
                   </div>
                 );
               })}
