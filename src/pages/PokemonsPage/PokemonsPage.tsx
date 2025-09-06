@@ -18,7 +18,6 @@ export const PokemonsPage = () => {
     function handleScroll() {
       const leftToBottom = document.body.scrollHeight - (window.innerHeight + window.scrollY);
       if (leftToBottom < 200) {
-        // console.log('fired');
         throttledFetch();
       }
     }

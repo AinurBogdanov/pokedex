@@ -13,8 +13,6 @@ export function PokemonPage() {
   const { data: nextPokemonData } = usePokemonById((pokemon?.id as number) + 1);
   const { data: previousPokemonData } = usePokemonById((pokemon?.id as number) - 1);
 
-  console.log(' Current: ', pokemon, 'Next: ', nextPokemonData, ' Previous: ', previousPokemonData);
-
   if (isLoading || !data || !pokemon) return;
 
   return (

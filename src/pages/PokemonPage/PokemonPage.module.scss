@@ -1,7 +1,7 @@
 @use '../../styles/variables.scss' as variables;
 
 .pageWrap {
-  height: 100%;
+  min-height: 100dvh;
   max-width: 1250px;
   margin: 0 auto;
   padding-top: 120px;
@@ -70,6 +70,7 @@
   bottom: 0;
   transform: translateX(-50%);
   z-index: 500;
+  text-wrap: nowrap;
 
   font-size: 40px;
   font-weight: 700;
@@ -97,30 +98,29 @@
 }
 
 .mainContent {
-  width: 100%;
-  padding: 0 100px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  column-gap: 10px;
+  width: 80%;
+  margin: 0 auto;
   margin-top: 20px;
+  display: flex;
+  gap: 10px;
 }
 .imageHolder {
-  height: 80%;
-  width: 90%;
   background-color: #f7f7f7;
   border-radius: 10px;
+  padding: 10px;
 }
 .image {
+  width: 100%;
   height: 100%;
-  margin: 0 auto;
-  padding: 50px;
+  max-height: 450px;
   border-radius: 10px;
+  object-fit: contain;
 }
 //stats
 .stats {
   margin-top: 20px;
   height: 250px;
-  width: 90%;
+  width: 100%;
   border-radius: 10px;
   background-color: variables.$gray-bg-color;
   padding: 15px;
@@ -171,7 +171,7 @@
 .info {
   background-color: variables.$blue-bg-color;
   height: 190px;
-  width: 100%;
+  min-width: 264px;
   font-size: 20px;
   border-radius: 10px;
   padding: 10px 15px;
@@ -202,7 +202,37 @@
   line-height: 35px;
   box-sizing: content-box;
   width: 7vw;
+  min-width: 60px;
   font-size: 20px;
   text-align: center;
   border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+  .mainContent {
+    flex-direction: column;
+  }
+  .imageHolder {
+    img {
+      max-height: 400px;
+    }
+  }
+}
+@media (max-width: 650px) {
+  .roundingRight,
+  .roundingLeft {
+    display: none;
+  }
+  .arrowLeft,
+  .arrowRight {
+    height: 45%;
+  }
+  .nameAndNumber {
+    background-color: transparent;
+  }
+}
+@media (max-width: 630px) {
+  .pokemonId {
+    display: none;
+  }
 }
