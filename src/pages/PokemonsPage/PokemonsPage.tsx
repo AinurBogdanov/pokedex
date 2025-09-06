@@ -1,12 +1,10 @@
-import type { Pokemon, PokemonShortInfo } from '../../types/pokemon';
+import type { PokemonShortInfo } from '../../types/pokemon';
 import styles from './Pokemons.module.scss';
-import { useInfinitePokemons, usePokemonByName } from '../../hooks/queries/pokemon';
-import { useNavigate } from 'react-router';
+import { useInfinitePokemons } from '../../hooks/queries/pokemon';
 import { memo, useEffect, useMemo } from 'react';
 import throttle from 'lodash.throttle';
-import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-import { makeReadble } from '../../utils/makeReadable';
+import { Pokemon } from './Pokemon';
 
 export const PokemonsPage = () => {
   const { data, fetchNextPage } = useInfinitePokemons();
@@ -47,36 +45,8 @@ export const PokemonsPage = () => {
   });
 
   return (
-    <div>
+    <div key="pokemonList">
       <PokemonList />
     </div>
   );
 };
-
-function Pokemon({ pokemon }: { pokemon: PokemonShortInfo }) {
-  const { data, isLoading } = usePokemonByName(pokemon.name);
-  const navigate = useNavigate();
-
-  if (isLoading || !data) {
-    return <Skeleton className={styles.skeleton} />;
-  }
-
-  const allPokemonInfo = data.data;
-
-  return (
-    <div onClick={() => navigate(`/pokemon/${pokemon.name}`)} className={styles.pokemonCard}>
-      <p className={styles.name}>{pokemon.name}</p>
-
-      <div className={styles.pokeCardImageAndId}>
-        <div className={styles.imageCont}>
-          <img
-            src={allPokemonInfo.sprites.front_default}
-            alt="pokemon"
-            className={styles.pokemonImage}
-          />
-        </div>
-        <p className={styles.pokemonId}>{makeReadble(allPokemonInfo.id)}</p>
-      </div>
-    </div>
-  );
-}
