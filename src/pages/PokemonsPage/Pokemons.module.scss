@@ -1,7 +1,7 @@
 @use '../../styles/variables.scss' as variables;
 
 .wrapper {
-  width: 1250px;
+  max-width: 1250px;
   margin: 0 auto;
   padding-top: 140px;
   background-color: white;
@@ -19,6 +19,8 @@
   position: relative;
 }
 .pokemonCard {
+  height: 100%;
+  min-width: 305px;
   position: relative;
   z-index: 10;
   background-color: rgb(246, 246, 246);
@@ -99,42 +101,47 @@
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 786px) {
   .pokemonsContainer {
     grid-template-columns: repeat(2, 1fr);
   }
   .pokemonImage {
-    height: 130px;
+    max-height: 130px;
   }
 }
-@media (max-width: 425px) {
+@media (max-width: 670px) {
   .pokemonsContainer {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .containerHolder {
+    height: 100px;
+  }
+  .pokemonCard {
+    min-width: 205px;
+  }
+  .pokemonId {
+    display: none;
+  }
+}
+@media (max-width: 515px) {
+  .pokemonsContainer {
+    padding: 0 20px;
+    grid-template-columns: repeat(1, 1fr);
 
-    .pokemonImage {
-      height: 200px;
-    }
     .pokemonId {
-      display: none;
-    }
-    .name {
-      font-size: 35px;
+      display: inline-block;
     }
   }
 }
 @media (max-width: 425px) {
   .pokemonsContainer {
-    grid-template-columns: repeat(1, 1fr);
-    padding: 0 50px;
-    row-gap: 40px;
     .pokemonImage {
-      height: 300px;
+      max-height: 300px;
     }
     .pokemonId {
       display: none;
     }
     .name {
-      font-size: 55px;
     }
   }
 }

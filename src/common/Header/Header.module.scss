@@ -46,7 +46,10 @@
     height: 150px;
   }
   .nav {
-    width: 50%;
+    width: 60%;
+    a {
+      font-size: 25px;
+    }
   }
   .logoCont {
     display: block;
