@@ -1,15 +1,99 @@
 @use '../../styles/variables.scss' as variables;
 
-.heading {
-  text-align: center;
-  font-weight: 400;
+.pageWrap {
+  height: 100%;
+  width: 1250px;
+  margin: 0 auto;
+  padding-top: 120px;
+  background-color: white;
+}
+
+.headerPage {
+  position: relative;
+  height: 170px;
+}
+.pagePagination {
   font-family: 'Asimovian';
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+}
+.arrowLeft,
+.arrowRight {
+  background-repeat: no-repeat;
+  cursor: pointer;
+  background-color: #acacac;
+  width: 49.6%;
+  height: 100%;
+  position: relative;
+}
+.arrowText {
+  text-align: center;
+}
+.pokemonId {
+  color: white;
+}
+.arrowBg {
+  position: absolute;
+  display: block;
+  background-image: url(/images/arrowNavigation.png);
+  background-size: cover;
+  width: 40px;
+  height: 40px;
+  opacity: 0.5;
+  top: 20px;
+}
+.arrowLeft .arrowBg {
+  right: 20px;
+  transform: rotate(90deg);
+}
+.arrowRight .arrowBg {
+  left: 20px;
+  transform: rotate(-90deg);
+}
+
+.arrowLeft:hover {
+  background-color: rgb(44, 133, 174);
+}
+.arrowRight:hover {
+  background-color: rgb(44, 133, 174);
+}
+
+.nameAndNumber {
+  font-weight: 400;
+  text-align: center;
+  position: absolute;
+  width: 60%;
+  height: 100px;
+  background-color: white;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  z-index: 500;
+
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 100px;
+}
+.roundingRight,
+.roundingLeft {
+  background-image: url(/images/white-peace.png);
+  width: 137px;
+  height: 113px;
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: cover;
+  bottom: 0px;
+}
+.roundingRight {
+  right: -133px;
+  transform: scaleX(-1);
+}
+.roundingLeft {
+  left: -133px;
 }
 .number {
   color: variables.$gray-text-color;
-}
-.page {
-  height: 100%;
 }
 
 .mainContent {
@@ -22,7 +106,7 @@
 }
 .imageHolder {
   height: 450px;
-  background-color: variables.$light-gray-bg-color;
+  background-color: #f7f7f7;
   border-radius: 10px;
 }
 .image {
@@ -115,11 +199,11 @@
   gap: 5px;
 }
 .type {
-  height: 40px;
+  height: 35px;
+  line-height: 35px;
+  box-sizing: content-box;
   width: 200px;
   font-size: 20px;
-  background-color: #9bcc50;
   text-align: center;
-  line-height: 40px;
   border-radius: 5px;
 }

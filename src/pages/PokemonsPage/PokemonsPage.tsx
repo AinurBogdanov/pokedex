@@ -45,7 +45,7 @@ export const PokemonsPage = () => {
   });
 
   return (
-    <div key="pokemonList">
+    <div className={styles.wrapper}>
       <PokemonList />
     </div>
   );

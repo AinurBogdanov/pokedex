@@ -60,7 +60,7 @@ export function Pokemon({ pokemon }: { pokemon: PokemonShortInfo }) {
           <div className={styles.types}>
             {allPokemonInfo.types.map((type) => {
               return (
-                <span key={type.type.name} className={styles.type}>
+                <span key={type.type.name} className={styles.type + ' ' + type.type.name}>
                   {type.type.name}
                 </span>
               );

@@ -6,13 +6,13 @@ import { Header } from './common/Header/Header';
 
 function App() {
   return (
-    <div className="wrapper">
+    <>
       <Header />
       <Routes>
         <Route path="/" element={<PokemonsPage />} />
         <Route path="/pokemon/:name" element={<PokemonPage />} />
       </Routes>
-    </div>
+    </>
   );
 }
 

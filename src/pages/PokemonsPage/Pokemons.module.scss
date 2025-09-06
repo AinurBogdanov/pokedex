@@ -1,11 +1,19 @@
 @use '../../styles/variables.scss' as variables;
 
+.wrapper {
+  width: 1250px;
+  margin: 0 auto;
+  padding-top: 140px;
+  background-color: white;
+}
+
 .pokemonsContainer {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 1fr;
   gap: 10px;
   font-family: 'Asimovian';
+  padding: 0 30px;
 }
 .containerHolder {
   position: relative;
@@ -18,12 +26,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.43);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.395);
   border-radius: 5px;
   cursor: pointer;
   padding: 0 20px;
-  // .imageCont {
-  // }
+
   .name {
     font-size: 20px;
   }
@@ -32,6 +39,7 @@
     font-size: 20px;
   }
   .pokeCardImageAndId {
+    height: 100%;
     display: flex;
     align-items: center;
   }
@@ -85,9 +93,48 @@
   gap: 10px;
   .type {
     display: inline-block;
-    background-color: rgb(121, 124, 143);
     color: white;
     border-radius: 20px;
     padding: 4px 10px;
+  }
+}
+
+@media (max-width: 700px) {
+  .pokemonsContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .pokemonImage {
+    height: 130px;
+  }
+}
+@media (max-width: 425px) {
+  .pokemonsContainer {
+    grid-template-columns: repeat(2, 1fr);
+
+    .pokemonImage {
+      height: 200px;
+    }
+    .pokemonId {
+      display: none;
+    }
+    .name {
+      font-size: 35px;
+    }
+  }
+}
+@media (max-width: 425px) {
+  .pokemonsContainer {
+    grid-template-columns: repeat(1, 1fr);
+    padding: 0 50px;
+    row-gap: 40px;
+    .pokemonImage {
+      height: 300px;
+    }
+    .pokemonId {
+      display: none;
+    }
+    .name {
+      font-size: 55px;
+    }
   }
 }

@@ -4,24 +4,75 @@
 
 html {
   font-family: 'Roboto';
+  height: 100%;
 }
 body {
+  background-image: url(/images/body_bg.png);
+  height: 100%;
 }
 a {
   color: black;
   text-decoration: none;
 }
 #root {
-  min-height: 100%;
-}
-.wrapper {
-  width: 1250px;
-  margin: 0 auto;
   height: 100%;
-  padding-top: 140px;
 }
 .h3 {
   font-size: 30px;
   font-weight: 600;
   margin: 10px 0;
+}
+// @media (max-width: 1300px) {
+// }
+// @media (max-width: 425px) {
+// }
+
+.poison {
+  border: 5px solid #811dd3;
+  background-color: #811dd3;
+}
+.grass {
+  border: 5px solid #9bcc50;
+  background-color: #9bcc50;
+}
+.fire {
+  border: 5px solid #f7a100;
+  background-color: #f7a100;
+}
+.water,
+.ice {
+  border: 5px solid #00c8ff;
+  background-color: #00c8ff;
+}
+.bug {
+  border: 5px solid #bb7c09;
+  background-color: #bb7c09;
+}
+.flying {
+  border: 5px solid #12d4a1;
+  background-color: #12d4a1;
+}
+.normal {
+  border: 5px solid #ae6352;
+  background-color: #ae6352;
+}
+.fairy {
+  border: 5px solid #ff9e8d;
+  background-color: #ff9e8d;
+}
+.ground {
+  border: 5px solid #000000;
+  background-color: #000000;
+}
+.electric {
+  border: 5px solid #f9f503;
+  background-color: #f9f503;
+}
+.fighting {
+  border: 5px solid #ff0404;
+  background-color: #ff0404;
+}
+.psychic {
+  border: 5px solid rgb(255, 111, 0);
+  background-color: rgb(255, 111, 0);
 }

@@ -8,8 +8,12 @@ export function Header() {
         <img className={styles.logo} src="/images/logo.png" alt="logo" />
       </Link>
       <div className={styles.nav}>
-        <Link to="/">Pokemons</Link>
-        <Link to="/">Another one</Link>
+        <Link className={styles.link} to="/">
+          Pokemons
+        </Link>
+        <Link className={styles.link} to="/">
+          Pokedex
+        </Link>
       </div>
     </div>
   );

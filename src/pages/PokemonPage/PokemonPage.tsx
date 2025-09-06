@@ -1,6 +1,7 @@
 import { useParams } from 'react-router';
 import styles from './PokemonPage.module.scss';
 import { usePokemonByName } from '../../hooks/queries/pokemon';
+import { makeReadble } from '../../utils/makeReadable';
 
 export function PokemonPage() {
   const params = useParams();
@@ -10,10 +11,29 @@ export function PokemonPage() {
   const pokemon = data.data;
 
   return (
-    <div className={styles.page}>
-      <h1 className={styles.heading}>
-        {pokemon.name} <span className={styles.number}>#{pokemon.id}</span>
-      </h1>
+    <div className={styles.pageWrap}>
+      <header className={styles.headerPage}>
+        <h1 className={styles.pagePagination}>
+          <span className={styles.arrowRight}>
+            <i className={styles.arrowBg}></i>
+            <p className={styles.arrowText}>
+              <span className={styles.pokemonId}>#1238 </span> Gyarados{' '}
+            </p>
+          </span>
+
+          <span className={styles.arrowLeft}>
+            <i className={styles.arrowBg}></i>
+            <p className={styles.arrowText}>
+              <span className={styles.pokemonId}>#1238 </span> Gyarados{' '}
+            </p>
+          </span>
+        </h1>
+        <div className={styles.nameAndNumber}>
+          {pokemon.name} <span className={styles.number}>{makeReadble(pokemon.id)}</span>
+          <div className={styles.roundingRight}></div>
+          <div className={styles.roundingLeft}></div>
+        </div>
+      </header>
       <div className={styles.mainContent}>
         <div>
           <div className={styles.imageHolder}>
@@ -83,9 +103,10 @@ export function PokemonPage() {
           <p className="h3">Type</p>
           <div className={styles.types}>
             {pokemon.types.map((type) => {
+              const name = type.type.name as string;
               return (
-                <p key={type.type.name} className={styles.type}>
-                  {type.type.name}
+                <p key={type.type.name} className={styles.type + ' ' + name}>
+                  {name}
                 </p>
               );
             })}
