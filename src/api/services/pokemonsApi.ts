@@ -27,8 +27,11 @@ export const fetchWithPagination = async ({
 };
 
 export const fetchPokemonById =
-  ({ id }: { id: number }) =>
+  ({ id }: { id: number | undefined }) =>
   () => {
+    if (!id) {
+      return null;
+    }
     return api<PokemonShortInfo>({
       url: `/pokemon/${id}`,
       method: 'get',

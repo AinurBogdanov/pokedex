@@ -15,6 +15,7 @@ export type Pokemon = {
   weight: number;
   height: string;
   id: number;
+  order: number;
 
   abilities: Abilities[];
   types: Type[];

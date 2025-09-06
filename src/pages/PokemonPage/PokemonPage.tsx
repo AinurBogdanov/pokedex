@@ -1,32 +1,51 @@
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import styles from './PokemonPage.module.scss';
-import { usePokemonByName } from '../../hooks/queries/pokemon';
+import { usePokemonById, usePokemonByName } from '../../hooks/queries/pokemon';
 import { makeReadble } from '../../utils/makeReadable';
 
 export function PokemonPage() {
   const params = useParams();
+  const navigate = useNavigate();
+
   const { data, isLoading } = usePokemonByName(params.name);
 
-  if (isLoading || !data) return;
-  const pokemon = data.data;
+  const pokemon = data?.data;
+  const { data: nextPokemonData } = usePokemonById((pokemon?.id as number) + 1);
+  const { data: previousPokemonData } = usePokemonById((pokemon?.id as number) - 1);
+
+  console.log(' Current: ', pokemon, 'Next: ', nextPokemonData, ' Previous: ', previousPokemonData);
+
+  if (isLoading || !data || !pokemon) return;
 
   return (
     <div className={styles.pageWrap}>
       <header className={styles.headerPage}>
         <h1 className={styles.pagePagination}>
-          <span className={styles.arrowRight}>
-            <i className={styles.arrowBg}></i>
-            <p className={styles.arrowText}>
-              <span className={styles.pokemonId}>#1238 </span> Gyarados{' '}
-            </p>
-          </span>
+          {previousPokemonData && (
+            <span
+              onClick={() => navigate(`/pokemon/${previousPokemonData.data.name}`)}
+              className={styles.arrowRight}
+            >
+              <i className={styles.arrowBg}></i>
+              <p className={styles.arrowText}>
+                <span className={styles.pokemonId}>{makeReadble(pokemon.id - 1)} </span>{' '}
+                {previousPokemonData.data.name}
+              </p>
+            </span>
+          )}
 
-          <span className={styles.arrowLeft}>
-            <i className={styles.arrowBg}></i>
-            <p className={styles.arrowText}>
-              <span className={styles.pokemonId}>#1238 </span> Gyarados{' '}
-            </p>
-          </span>
+          {nextPokemonData && (
+            <span
+              onClick={() => navigate(`/pokemon/${nextPokemonData.data.name}`)}
+              className={styles.arrowLeft}
+            >
+              <i className={styles.arrowBg}></i>
+              <p className={styles.arrowText}>
+                <span className={styles.pokemonId}>{makeReadble(pokemon.id + 1)} </span>{' '}
+                {nextPokemonData.data.name}
+              </p>
+            </span>
+          )}
         </h1>
         <div className={styles.nameAndNumber}>
           {pokemon.name} <span className={styles.number}>{makeReadble(pokemon.id)}</span>
