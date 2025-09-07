@@ -5,7 +5,7 @@
   right: 0;
   z-index: 1000;
 
-  height: 100px;
+  height: variables.$header-height;
   background-color: rgb(255, 255, 255);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.21);
   display: flex;
@@ -26,7 +26,18 @@
   justify-content: space-around;
   align-items: center;
 }
+.accountLink {
+  display: flex;
+  align-items: center;
+}
+// .avatarImageCont {
 
+// }
+.userAvatar {
+  width: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+}
 @media (max-width: 1024px) {
   .header {
     height: 80px;

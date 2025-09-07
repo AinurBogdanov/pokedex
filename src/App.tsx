@@ -3,6 +3,7 @@ import { PokemonsPage } from './pages';
 import { PokemonPage } from './pages/PokemonPage/PokemonPage';
 // import styles from './App.module.scss';
 import { Header } from './common/Header/Header';
+import Auth from './pages/Auth/Auth';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<PokemonsPage />} />
         <Route path="/pokemon/:name" element={<PokemonPage />} />
+        <Route path="/auth" element={<Auth />} />
       </Routes>
     </>
   );

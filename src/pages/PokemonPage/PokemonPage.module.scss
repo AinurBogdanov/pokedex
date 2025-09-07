@@ -1,11 +1,10 @@
-@use '../../styles/variables.scss' as variables;
-
 .pageWrap {
   min-height: 100dvh;
   max-width: 1250px;
   margin: 0 auto;
-  padding-top: 120px;
+  padding-top: variables.$header-height;
   background-color: white;
+  background-image: url(/images/container_bg.png);
 }
 
 .headerPage {
@@ -26,13 +25,15 @@
   width: 49.6%;
   height: 100%;
   position: relative;
+  transition: all 0.5s ease;
 }
-.arrowText {
-  text-align: center;
+.arrowLeft:hover {
+  background-color: rgb(44, 133, 174);
 }
-.pokemonId {
-  color: white;
+.arrowRight:hover {
+  background-color: rgb(44, 133, 174);
 }
+
 .arrowBg {
   position: absolute;
   display: block;
@@ -51,12 +52,11 @@
   left: 20px;
   transform: rotate(-90deg);
 }
-
-.arrowLeft:hover {
-  background-color: rgb(44, 133, 174);
+.arrowText {
+  text-align: center;
 }
-.arrowRight:hover {
-  background-color: rgb(44, 133, 174);
+.pokemonId {
+  color: white;
 }
 
 .nameAndNumber {
@@ -99,11 +99,15 @@
 
 .mainContent {
   width: 80%;
+  background-color: white;
+  padding: 20px;
   margin: 0 auto;
-  margin-top: 20px;
+}
+.topContent {
   display: flex;
   gap: 10px;
 }
+
 .imageHolder {
   background-color: #f7f7f7;
   border-radius: 10px;
@@ -167,7 +171,9 @@
   margin-bottom: 20px;
   font-size: 13px;
 }
-
+.infoBlock {
+  width: 50%;
+}
 .info {
   background-color: variables.$blue-bg-color;
   height: 190px;
@@ -207,7 +213,42 @@
   text-align: center;
   border-radius: 5px;
 }
-
+//
+.evolutions {
+  margin-top: 30px;
+  background-image: url(/images/body_bg.png);
+  width: 100%;
+  height: 400px;
+  border-radius: 20px;
+  padding: 30px;
+}
+.evolutionContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.evolutionHeading {
+  color: white;
+  font-size: 40px;
+}
+.evolutionEl {
+  border: 5px solid white;
+  border-radius: 50%;
+  background-color: rgb(69, 69, 69);
+}
+.arrowEvolution {
+  width: 40px;
+  height: 40px;
+}
+.arrowEvolution::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-right: 10px solid white;
+  border-top: 10px solid white;
+  transform: rotate(45deg);
+}
 @media (max-width: 768px) {
   .mainContent {
     flex-direction: column;

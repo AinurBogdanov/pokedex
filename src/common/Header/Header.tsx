@@ -14,6 +14,12 @@ export function Header() {
         <Link className={styles.link} to="/">
           Pokedex
         </Link>
+        <Link className={styles.link + ' ' + styles.accountLink} to="/account">
+          Account
+          <div className={styles.avatarImageCont}>
+            <img className={styles.userAvatar} src="/images/avatarPlaceholder.jpg" alt="" />
+          </div>
+        </Link>
       </div>
     </div>
   );
