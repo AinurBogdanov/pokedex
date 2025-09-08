@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { UserInfo } from 'firebase/auth';
+import type { RootState } from '../store';
 
 type UserState = {
   user: {
@@ -35,13 +36,10 @@ export const userSlice = createSlice({
       state.user = action.payload.user;
     },
   },
-  selectors: {
-    selectUser: (state) => {
-      return state.user;
-    },
-  },
 });
+
+export const selectUser = (state: RootState) => state.user.user;
+export const selectIsUserExist = (state: RootState) => !!state.user.user.uid;
 
 export const userReducer = userSlice.reducer;
 export const { addUser } = userSlice.actions;
-export const { selectUser } = userSlice.selectors;

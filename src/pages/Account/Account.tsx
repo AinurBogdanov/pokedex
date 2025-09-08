@@ -5,8 +5,6 @@ import { Link } from 'react-router';
 
 export default function Account() {
   const user = useSelector(selectUser);
-
-  console.log(user);
   return (
     <div className={styles.wrapper}>
       <div className={styles.heading}>

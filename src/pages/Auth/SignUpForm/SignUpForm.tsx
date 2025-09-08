@@ -4,6 +4,9 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { getDatabase, ref, set } from 'firebase/database';
 import app from '../../../firebase';
+import type { AppDispatch } from '../../../redux/store';
+import { useDispatch } from 'react-redux';
+import { addUser } from '../../../redux/user/userSlice';
 
 interface SignUpParams {
   name: string;
@@ -13,6 +16,7 @@ interface SignUpParams {
 }
 
 export function SignUpForm() {
+  const dispatch = useDispatch<AppDispatch>();
   const auth = getAuth();
   const db = getDatabase(app);
 
@@ -42,6 +46,16 @@ export function SignUpForm() {
         })
           .then(() => {
             console.log('Profile updated successfully');
+            const updatedUser = auth.currentUser;
+            console.log(updatedUser);
+
+            if (updatedUser) {
+              const { email, displayName, phoneNumber, photoURL, providerId, uid } = updatedUser;
+              dispatch(
+                addUser({ user: { email, displayName, phoneNumber, photoURL, providerId, uid } }),
+              );
+            }
+
             navigate('/');
           })
           .catch((error) => {

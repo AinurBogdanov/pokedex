@@ -14,18 +14,17 @@ import { addUser } from './redux/user/userSlice';
 function App() {
   const auth = getAuth();
   // const [user, setUser] = React.useState<User | undefined | null>();
-  const [userLoading, setUserLoading] = React.useState<boolean>(false);
+  const [userLoading, setUserLoading] = React.useState<boolean>(true);
   const dispatch = useDispatch<AppDispatch>();
 
   React.useEffect(() => {
-    setUserLoading(true);
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      // setUser(currentUser);
       if (currentUser) {
         const { email, displayName, phoneNumber, photoURL, providerId, uid } = currentUser;
 
-        dispatch(addUser({ user: { email, displayName, phoneNumber, photoURL, providerId, uid } })); // currentUser. //  save to state !
-        console.log(currentUser);
+        dispatch(addUser({ user: { email, displayName, phoneNumber, photoURL, providerId, uid } }));
+        console.log('user dispatched');
+        // console.log(currentUser);
       }
       if (!currentUser) console.log('current user нема');
       setUserLoading(false);

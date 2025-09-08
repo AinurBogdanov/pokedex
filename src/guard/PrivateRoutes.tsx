@@ -1,14 +1,18 @@
 import { Navigate, Outlet } from 'react-router';
 import { useSelector } from 'react-redux';
-import { selectUser } from '../redux/user/userSlice';
+import { selectIsUserExist } from '../redux/user/userSlice';
 
 const PrivateRoutes = () => {
-  const user = useSelector(selectUser);
+  const userExist = useSelector(selectIsUserExist);
 
-  if (!user) {
-    console.log('usera nema bro', user);
+  if (!userExist) {
+    console.log('usera nema bro');
   }
-  return user ? <Outlet /> : <Navigate to="/auth" />;
+
+  return userExist ? <Outlet /> : <Navigate to="/auth" />;
 };
 
 export default PrivateRoutes;
+
+//123456
+//"bogdanovainur50@gmail.com"
