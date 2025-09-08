@@ -51,13 +51,12 @@
   .submitBtn {
     position: absolute;
     bottom: 20px;
-    padding: 8px 20px;
     left: 50%;
     transform: translateX(-50%);
-    border: none;
-    border-radius: 5px;
-    background-color: rgb(0, 68, 255);
-    color: variables.$white-text-color;
-    cursor: pointer;
   }
+}
+.authControl {
+  width: 300px;
+  display: flex;
+  justify-content: space-around;
 }

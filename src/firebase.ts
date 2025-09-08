@@ -18,20 +18,3 @@ export default app;
 //   email: string;
 //   city: string;
 // };
-
-// type SignInParams = {
-//   user: User;
-//   email: string;
-//   password: string;
-// };
-
-// export function signIn({ user, email, password }: SignInParams) {
-//   signInWithEmailAndPassword(auth, email, password)
-//     .then((userCredential) => {
-//       return userCredential.user;
-//     })
-//     .catch((error) => {
-//       console.error('auth error : ', error);
-//     });
-//   console.log(user);
-// }

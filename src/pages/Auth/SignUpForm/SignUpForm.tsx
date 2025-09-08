@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import styles from '../Auth.module.scss';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 
 interface FormData {
   email: string;
@@ -14,19 +15,22 @@ export function SignUpForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
+  const navigate = useNavigate();
 
   function signUpUser({ email, password }: { email: string; password: string }) {
     return createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        return userCredential.user;
-        //save! accessToken
+        alert('you loged in');
+        navigate('/');
+
+        console.log(userCredential.user);
       })
       .catch((error) => {
-        console.error('auth error : ', error);
+        if (error.message.includes('email-already-in-use')) {
+          alert('email already in use');
+        }
       });
   }
-
-  console.log(errors);
 
   return (
     <form noValidate onSubmit={handleSubmit(signUpUser)} className={styles.form}>
@@ -39,7 +43,7 @@ export function SignUpForm() {
         <input
           {...register('password', {
             required: 'password is required',
-            minLength: { value: 4, message: 'too short password' },
+            minLength: { value: 6, message: 'too short password' },
           })}
           className={styles.formInput}
           type="text"
@@ -68,7 +72,7 @@ export function SignUpForm() {
         {errors.email && <div>{errors.email.message as string}</div>}
       </label>
 
-      <button className={styles.submitBtn}>Submit</button>
+      <button className={styles.submitBtn + ' btn'}>Submit</button>
     </form>
   );
 }
