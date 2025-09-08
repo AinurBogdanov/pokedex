@@ -4,7 +4,7 @@ import { PokemonPage } from './pages/PokemonPage/PokemonPage';
 import Auth from './pages/Auth/Auth';
 import { Layout } from './layout/layout';
 import React from 'react';
-import { onAuthStateChanged, getAuth, type User } from 'firebase/auth';
+import { onAuthStateChanged, getAuth } from 'firebase/auth';
 import PrivateRoutes from './guard/PrivateRoutes';
 import Account from './pages/Account/Account';
 import type { AppDispatch } from './redux/store';
@@ -24,7 +24,8 @@ function App() {
       if (currentUser) {
         const { email, displayName, phoneNumber, photoURL, providerId, uid } = currentUser;
 
-        dispatch(addUser({ email, displayName, phoneNumber, photoURL, providerId, uid })); // currentUser. //  save to state !
+        dispatch(addUser({ user: { email, displayName, phoneNumber, photoURL, providerId, uid } })); // currentUser. //  save to state !
+        console.log(currentUser);
       }
       if (!currentUser) console.log('current user нема');
       setUserLoading(false);

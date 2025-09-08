@@ -12,9 +12,9 @@ type UserState = {
 
 const initialUserState: UserState = {
   user: {
+    email: '',
     firstName: '',
     lastName: '',
-    email: '',
     city: '',
     displayName: '',
     phoneNumber: '',
@@ -32,7 +32,7 @@ export const userSlice = createSlice({
     addUser: (state, action: PayloadAction<UserState>) => {
       //get id from data and fetch user from db
       // and then save it all to state
-      state = action.payload;
+      state.user = action.payload.user;
     },
   },
   selectors: {
