@@ -8,13 +8,8 @@ const firebaseConfig = {
   storageBucket: 'pokedex-8240a.firebasestorage.app',
   messagingSenderId: '60564154408',
   appId: '1:60564154408:web:c1aa1e0c0a7db2bea42d1d',
+  databaseURL: 'https://pokedex-8240a-default-rtdb.asia-southeast1.firebasedatabase.app',
 };
 const app = initializeApp(firebaseConfig);
-export default app;
 
-// type User = {
-//   firstname: string;
-//   lastName: string;
-//   email: string;
-//   city: string;
-// };
+export default app;

@@ -7,20 +7,31 @@ import React from 'react';
 import { onAuthStateChanged, getAuth, type User } from 'firebase/auth';
 import PrivateRoutes from './guard/PrivateRoutes';
 import Account from './pages/Account/Account';
+import type { AppDispatch } from './redux/store';
+import { useDispatch } from 'react-redux';
+import { addUser } from './redux/user/userSlice';
 
 function App() {
   const auth = getAuth();
-  const [user, setUser] = React.useState<User | undefined>();
+  // const [user, setUser] = React.useState<User | undefined | null>();
   const [userLoading, setUserLoading] = React.useState<boolean>(false);
+  const dispatch = useDispatch<AppDispatch>();
 
   React.useEffect(() => {
     setUserLoading(true);
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser as User);
+      // setUser(currentUser);
+      if (currentUser) {
+        const { email, displayName, phoneNumber, photoURL, providerId, uid } = currentUser;
+
+        dispatch(addUser({ email, displayName, phoneNumber, photoURL, providerId, uid })); // currentUser. //  save to state !
+      }
+      if (!currentUser) console.log('current user нема');
       setUserLoading(false);
     });
+
     return () => unsubscribe();
-  }, [auth]);
+  }, [auth, dispatch]);
 
   if (userLoading) return <>Loading...</>;
 
@@ -29,7 +40,7 @@ function App() {
       <Routes>
         <Route path={'/auth'} element={<Auth />} />
 
-        <Route element={<PrivateRoutes user={user} />}>
+        <Route element={<PrivateRoutes />}>
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<PokemonsPage />} />
             <Route path="/pokemon/:name" element={<PokemonPage />} />

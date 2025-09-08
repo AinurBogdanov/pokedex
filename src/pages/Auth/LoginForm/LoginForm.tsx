@@ -1,16 +1,16 @@
-import { getAuth, signInWithEmailAndPassword, type User } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import styles from '../Auth.module.scss';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
 type SignInParams = {
-  user?: User;
   email: string;
   password: string;
 };
 
 export function LogInForm() {
   const auth = getAuth();
+
   const {
     register,
     handleSubmit,
@@ -18,18 +18,16 @@ export function LogInForm() {
   } = useForm<SignInParams>();
   const navigate = useNavigate();
 
-  function signIn({ user, email, password }: SignInParams) {
+  function signIn({ email, password }: SignInParams) {
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(() => {
         alert('your are in');
         navigate('/');
-        return userCredential.user;
       })
       .catch((error) => {
         alert('something went wrong');
         console.error('auth error : ', error);
       });
-    console.log(user ? '' : 'user wasnt passed in');
   }
 
   //123123

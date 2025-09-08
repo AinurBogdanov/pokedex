@@ -1,29 +1,52 @@
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, updateProfile } from 'firebase/auth';
 import styles from '../Auth.module.scss';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
+import { getDatabase, ref, set } from 'firebase/database';
+import app from '../../../firebase';
 
-interface FormData {
+interface SignUpParams {
+  name: string;
+  lastName: string;
   email: string;
   password: string;
 }
 
 export function SignUpForm() {
   const auth = getAuth();
+  const db = getDatabase(app);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<SignUpParams>();
   const navigate = useNavigate();
 
-  function signUpUser({ email, password }: { email: string; password: string }) {
+  function signUpUser({ name, lastName, email, password }: SignUpParams) {
     return createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        alert('you loged in');
-        navigate('/');
+        alert('you logged in');
 
-        console.log(userCredential.user);
+        set(ref(db, 'users/' + userCredential.user.uid), {
+          name,
+          lastName,
+          email,
+          profile_picture: null,
+        }).catch((error) => {
+          console.log('fucking error:', error);
+        });
+
+        updateProfile(userCredential.user, {
+          displayName: name + ' ' + lastName,
+        })
+          .then(() => {
+            console.log('Profile updated successfully');
+            navigate('/');
+          })
+          .catch((error) => {
+            console.error('Error updating profile:', error);
+          });
       })
       .catch((error) => {
         if (error.message.includes('email-already-in-use')) {
@@ -35,6 +58,36 @@ export function SignUpForm() {
   return (
     <form noValidate onSubmit={handleSubmit(signUpUser)} className={styles.form}>
       <h1 className={styles.formHeading}>Sign Up</h1>
+      <label className={styles.formLabel}>
+        <span>
+          Name
+          <img className={styles.requiredStar} src="/images/reqired_star.png" alt="" />
+        </span>
+        <input
+          {...register('name', {
+            required: 'name is required',
+          })}
+          className={styles.formInput}
+          type="text"
+        />
+        {errors.name && <div>{errors.name.message as string}</div>}
+      </label>
+
+      <label className={styles.formLabel}>
+        <span>
+          Last name
+          <img className={styles.requiredStar} src="/images/reqired_star.png" alt="" />
+        </span>
+        <input
+          {...register('lastName', {
+            required: 'lastName is required',
+          })}
+          className={styles.formInput}
+          type="text"
+        />
+        {errors.lastName && <div>{errors.lastName.message as string}</div>}
+      </label>
+
       <label className={styles.formLabel}>
         <span>
           Password
