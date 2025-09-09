@@ -1,37 +1,31 @@
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import styles from '../Auth.module.scss';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
-
-type SignInParams = {
-  email: string;
-  password: string;
-};
+import type { SignInParams } from '../formsTypes';
+import { signInUser } from '../../../firebase/api/auth';
 
 export function LogInForm() {
-  const auth = getAuth();
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<SignInParams>();
-  const navigate = useNavigate();
 
   function signIn({ email, password }: SignInParams) {
-    signInWithEmailAndPassword(auth, email, password)
+    signInUser({ email, password })
       .then(() => {
-        alert('your are in');
+        alert('user logged in');
         navigate('/');
       })
       .catch((error) => {
-        alert('something went wrong');
-        console.error('auth error : ', error);
+        console.log(error);
       });
   }
 
-  //123123
-  //ainurbogdanov19@gmail.com
+  //
+  //
 
   return (
     <form noValidate onSubmit={handleSubmit(signIn)} className={styles.form}>

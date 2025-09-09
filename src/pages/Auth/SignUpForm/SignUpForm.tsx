@@ -1,72 +1,29 @@
-import { createUserWithEmailAndPassword, getAuth, updateProfile } from 'firebase/auth';
 import styles from '../Auth.module.scss';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
-import { getDatabase, ref, set } from 'firebase/database';
-import app from '../../../firebase';
 import type { AppDispatch } from '../../../redux/store';
 import { useDispatch } from 'react-redux';
-import { addUser } from '../../../redux/user/userSlice';
-
-interface SignUpParams {
-  name: string;
-  lastName: string;
-  email: string;
-  password: string;
-}
+import { registerUser } from '../../../firebase/api/auth';
+import type { SignUpParams } from '../formsTypes';
 
 export function SignUpForm() {
   const dispatch = useDispatch<AppDispatch>();
-  const auth = getAuth();
-  const db = getDatabase(app);
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<SignUpParams>();
-  const navigate = useNavigate();
 
-  function signUpUser({ name, lastName, email, password }: SignUpParams) {
-    return createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        alert('you logged in');
-
-        set(ref(db, 'users/' + userCredential.user.uid), {
-          name,
-          lastName,
-          email,
-          profile_picture: null,
-        }).catch((error) => {
-          console.log('fucking error:', error);
-        });
-
-        updateProfile(userCredential.user, {
-          displayName: name + ' ' + lastName,
-        })
-          .then(() => {
-            console.log('Profile updated successfully');
-            const updatedUser = auth.currentUser;
-            console.log(updatedUser);
-
-            if (updatedUser) {
-              const { email, displayName, phoneNumber, photoURL, providerId, uid } = updatedUser;
-              dispatch(
-                addUser({ user: { email, displayName, phoneNumber, photoURL, providerId, uid } }),
-              );
-            }
-
-            navigate('/');
-          })
-          .catch((error) => {
-            console.error('Error updating profile:', error);
-          });
-      })
-      .catch((error) => {
-        if (error.message.includes('email-already-in-use')) {
-          alert('email already in use');
-        }
-      });
+  async function signUpUser({ name, lastName, email, password }: SignUpParams) {
+    try {
+      const user = await registerUser({ name, lastName, email, password, dispatch });
+      alert(`user:  ${user.displayName} is registered`);
+      navigate('/');
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
