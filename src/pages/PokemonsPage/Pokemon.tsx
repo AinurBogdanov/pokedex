@@ -7,9 +7,9 @@ import styles from './Pokemons.module.scss';
 import { useRef, useState } from 'react';
 
 export function Pokemon({ pokemon }: { pokemon: PokemonShortInfo }) {
-  const [showInfo, setShowInfo] = useState(false);
+  const [showInfo, setShowInfo] = useState<boolean>(false);
 
-  const timerRef = useRef<number | undefined>(undefined);
+  const timerRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   const { data, isLoading } = usePokemonByName(pokemon.name);
   const navigate = useNavigate();
@@ -27,6 +27,7 @@ export function Pokemon({ pokemon }: { pokemon: PokemonShortInfo }) {
     clearTimeout(timerRef.current);
     setShowInfo(false);
   }
+
   return (
     <div className={styles.containerHolder}>
       <div

@@ -1,16 +1,20 @@
 import { useParams } from 'react-router';
 import styles from './PokemonPage.module.scss';
-import { usePokemonByName } from '../../hooks/queries/pokemon';
+import { usePokemonByName, usePokemonSpecies } from '../../hooks/queries/pokemon';
 import { PokemonPageHeader } from './PokemonPageHeader/pokemonPageHeader';
+import { Evolutions } from './Evolutions';
 
 export function PokemonPage() {
   const params = useParams();
+  const { data: pokemonData, isLoading } = usePokemonByName(params.name);
 
-  const { data, isLoading } = usePokemonByName(params.name);
+  const pokemonId = pokemonData?.data.id;
+  const { data: speciesData } = usePokemonSpecies(pokemonId);
 
-  const pokemon = data?.data;
-  if (isLoading || !data || !pokemon) return;
+  const evolutionUrl = speciesData?.data.evolution_chain.url;
+  const pokemon = pokemonData?.data;
 
+  if (!pokemon || isLoading || !pokemonData || !speciesData) return <>Loading ...</>;
   return (
     <div className={styles.pageWrap}>
       <PokemonPageHeader pokemon={pokemon} />
@@ -20,7 +24,7 @@ export function PokemonPage() {
             <div className={styles.imageHolder}>
               <img
                 className={styles.image}
-                src={pokemon.sprites.other.showdown.front_default}
+                src={pokemon.sprites.other.dream_world.front_default}
                 alt="Bulbasor"
               />
             </div>
@@ -28,8 +32,8 @@ export function PokemonPage() {
               <p className={styles.statHeading}>Stats</p>
               <div className={styles.statsBox}>
                 {pokemon.stats.map((stat) => {
-                  const baseStat = stat.base_stat; // 0 - 100
-                  const fullQuantity = Math.floor(baseStat / 10); // baseStat === 68 so fullQuantity = 6 is true ?
+                  const baseStat = stat.base_stat;
+                  const fullQuantity = Math.floor(baseStat / 10);
                   const emptyQuantity = 10 - fullQuantity;
                   const fullEl = () => {
                     return Array.from({ length: fullQuantity }).map((_, i) => {
@@ -89,31 +93,7 @@ export function PokemonPage() {
             </div>
           </div>
         </div>
-        <div className={styles.evolutions}>
-          <p className={styles.evolutionHeading}>Evolutions</p>
-          <div className={styles.evolutionContainer}>
-            <div className={styles.evolutionEl}>
-              <img
-                src="https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/detail/007.png"
-                alt="img"
-              />
-            </div>
-            <div className={styles.arrowEvolution}></div>
-            <div className={styles.evolutionEl}>
-              <img
-                src="https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/detail/007.png"
-                alt="img"
-              />
-            </div>
-            <div className={styles.arrowEvolution}></div>
-            <div className={styles.evolutionEl}>
-              <img
-                src="https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/detail/007.png"
-                alt="img"
-              />
-            </div>
-          </div>
-        </div>
+        <Evolutions pokemonId={pokemonId} evolutionUrl={evolutionUrl} />
       </div>
     </div>
   );

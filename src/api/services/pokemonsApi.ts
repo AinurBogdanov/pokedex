@@ -7,6 +7,25 @@ type PokemonsResponse = {
   next: string | null;
   results: PokemonShortInfo[];
 };
+export type EvolutionChain = {
+  evolution_details: [];
+  evolves_to: EvolutionChain[];
+  is_baby?: boolean;
+  species?: {
+    name: string;
+    url: string;
+  };
+};
+type Species = {
+  flavor_text_entries: [
+    {
+      flavor_text: string;
+    },
+  ];
+  evolution_chain: {
+    url: string;
+  };
+};
 
 export const fetchWithPagination = async ({
   page = 0,
@@ -26,24 +45,33 @@ export const fetchWithPagination = async ({
   };
 };
 
-export const fetchPokemonById =
-  ({ id }: { id: number | undefined }) =>
-  () => {
-    if (!id) {
-      return null;
-    }
-    return api<PokemonShortInfo>({
-      url: `/pokemon/${id}`,
-      method: 'get',
-    });
-  };
+export const fetchPokemonById = (id: number) => {
+  if (!id) return Promise.reject('Name is not provided');
+  return api<PokemonShortInfo>({
+    url: `/pokemon/${id}`,
+    method: 'get',
+  });
+};
 
-export const fetchPokemonByName =
-  ({ name }: { name: string | undefined }) =>
-  () => {
-    if (!name) return;
-    return api<Pokemon>({
-      url: `/pokemon/${name}`,
-      method: 'get',
-    });
-  };
+export const fetchPokemonByName = (name: string) => {
+  if (!name) return Promise.reject('Name is not provided');
+  return api<Pokemon>({
+    url: `/pokemon/${name}`,
+    method: 'get',
+  });
+};
+
+export const fetchSpecies = (id: number) => {
+  if (!id) return Promise.reject('No id provided');
+  return api<Species>({
+    url: `/pokemon-species/${id}/`,
+    method: 'get',
+  });
+};
+export const fetchEvolution = (url: string) => {
+  if (!url) return Promise.reject('No Url provided');
+  return api<{ chain: EvolutionChain }>({
+    url: url,
+    method: 'get',
+  });
+};
