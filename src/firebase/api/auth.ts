@@ -4,11 +4,13 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   updateProfile,
+  signInWithPopup,
+  signOut,
 } from 'firebase/auth';
 import { addUser } from '../../redux/user/userSlice';
 import {} from 'firebase/auth';
 import type { SignInParams } from '../../pages/Auth/formsTypes';
-import { auth, db } from '../firebase';
+import { auth, db, googleAuthProvider } from '../firebase';
 
 export async function registerUser({
   name,
@@ -52,4 +54,20 @@ export async function signInUser({ email, password }: SignInParams) {
     // "INVALID_LOGIN_CREDENTIALS"
     alert(error);
   }
+}
+export function signInWithGoogle(method: 'SignIn' | 'SignUp') {
+  return signInWithPopup(auth, googleAuthProvider)
+    .then((userCredential) => {
+      const { displayName, email, photoURL } = userCredential.user;
+      set(ref(db, 'users/' + userCredential.user.uid), {
+        displayName,
+        email,
+        profile_picture: photoURL,
+      });
+      alert(`${method}`);
+    })
+    .catch((error) => console.log(error));
+}
+export function signOutUser() {
+  signOut(auth);
 }

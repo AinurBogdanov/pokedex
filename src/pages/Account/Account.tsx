@@ -1,10 +1,20 @@
 import { useSelector } from 'react-redux';
 import styles from './Account.module.scss';
 import { selectUser } from '../../redux/user/userSlice';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
+import { signOutUser } from '../../firebase/api/auth';
 
 export default function Account() {
   const user = useSelector(selectUser);
+  const navigate = useNavigate();
+
+  function onSignOut() {
+    if (confirm('are you sure you want to log out') === true) {
+      signOutUser();
+      navigate('/auth');
+    }
+  }
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.heading}>
@@ -18,7 +28,7 @@ export default function Account() {
           <a>Settings</a>
         </div>
         <div className={styles.sideBarLink}>
-          <Link to="/auth"> Страница регистрации </Link>
+          <Link to="/auth">Registration page</Link>
         </div>
       </aside>
       <div className={styles.content}>
@@ -28,6 +38,16 @@ export default function Account() {
             <div className={styles.accInfoCouple}>
               Email address <span className={styles.infoVal}>{user.email}</span>
             </div>
+            <div className={styles.accInfoCouple}>
+              Phone number
+              <span className={styles.infoVal}>
+                {user.phoneNumber ? user.phoneNumber : 'unknown'}
+              </span>
+            </div>
+            <div className={styles.accInfoCouple}>
+              City
+              <span className={styles.infoVal}>{user.city ? user.city : 'unknown'}</span>
+            </div>
             {/* <div className={styles.accInfoCouple}>
               Email address <span className={styles.infoVal}>ainurbogdanov50@gmail.com</span>
             </div> */}
@@ -36,10 +56,17 @@ export default function Account() {
 
         <div className={styles.personalInfo}>
           <div className={styles.avatarImageCont}>
-            <img src="/images/avatarPlaceholder.jpg" alt="" />
+            <img
+              className={styles.avatarImage}
+              src={user.photoURL ? user.photoURL : '/images/avatarPlaceholder.jpg'}
+              alt=""
+            />
           </div>
           <h2>{user.displayName}</h2>
-          <div></div>
+          <div>some info</div>
+          <button className={styles.signOutButton} onClick={onSignOut}>
+            Sign out
+          </button>
         </div>
       </div>
     </div>

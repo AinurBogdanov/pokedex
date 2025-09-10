@@ -78,4 +78,15 @@
   overflow: hidden;
   border-radius: 3px;
   border: 2px solid rgb(188, 186, 186);
+  min-height: 300px;
+  .avatarImage {
+    width: 100%;
+  }
+}
+.signOutButton {
+  background-color: red;
+  cursor: pointer;
+  border: none;
+  color: white;
+  padding: 5px 20px;
 }

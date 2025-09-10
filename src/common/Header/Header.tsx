@@ -1,7 +1,11 @@
 import { Link } from 'react-router';
 import styles from './Header.module.scss';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../redux/user/userSlice';
 
 export function Header() {
+  const user = useSelector(selectUser);
+
   return (
     <div className={styles.header}>
       <Link className={styles.logoCont} to="/">
@@ -17,7 +21,11 @@ export function Header() {
         <Link className={styles.link + ' ' + styles.accountLink} to="/account">
           Account
           <div className={styles.avatarImageCont}>
-            <img className={styles.userAvatar} src="/images/avatarPlaceholder.jpg" alt="" />
+            <img
+              className={styles.userAvatar}
+              src={user.photoURL ? user.photoURL : '/images/avatarPlaceholder.jpg'}
+              alt=""
+            />
           </div>
         </Link>
       </div>
