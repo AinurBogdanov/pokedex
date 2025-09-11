@@ -1,148 +1,49 @@
+import { useSelector } from 'react-redux';
+import { selectTeam } from '../../../redux/user/userSlice';
 import styles from './Team.module.scss';
+import { useAllPokemonsByIds } from '../../../hooks/queries/pokemon';
 
 export function Team() {
+  const teamIds = useSelector(selectTeam);
+  console.log(teamIds);
+  const res = useAllPokemonsByIds(teamIds);
+  const team = res.map((pokemonRes) => {
+    return pokemonRes?.data?.data;
+  });
+
+  if (!team || team.length === 0) return '';
+
   return (
     <div>
       <h1>Team</h1>
       <div className={styles.teamContainer}>
-        <div className={styles.teamPokemon}>
-          <div className={styles.imageCont}>
-            <img
-              src={'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png'}
-              alt="pokemon"
-              className={styles.pokemonImage}
-            />
-          </div>
-          <div className={styles.pokemonInfo}>
-            <div className={styles.pokemonName}>bulbasor</div>
-            <div className={styles.types}>
-              <span className={styles.type + ' poison'}>Poison</span>
+        {team.map((pokemon) => {
+          if (!pokemon) return 'Pokemon not found';
+
+          return (
+            <div className={styles.teamPokemon}>
+              <div className={styles.imageCont}>
+                <img
+                  src={pokemon.sprites.front_default}
+                  alt="pokemon"
+                  className={styles.pokemonImage}
+                />
+              </div>
+              <div className={styles.pokemonInfo}>
+                <div className={styles.pokemonName}>{pokemon.name}</div>
+                <div className={styles.types}>
+                  {pokemon.types.map((type) => {
+                    return (
+                      <span key={type.type.name} className={styles.type + ' ' + type.type.name}>
+                        {type.type.name}
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div className={styles.teamPokemon}>
-          <div className={styles.imageCont}>
-            <img
-              src={'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png'}
-              alt="pokemon"
-              className={styles.pokemonImage}
-            />
-          </div>
-          <div className={styles.pokemonInfo}>
-            <div className={styles.pokemonName}>bulbasor</div>
-            <div className={styles.types}>
-              <span className={styles.type + ' poison'}>Poison</span>
-            </div>
-          </div>
-        </div>
-        <div className={styles.teamPokemon}>
-          <div className={styles.imageCont}>
-            <img
-              src={'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png'}
-              alt="pokemon"
-              className={styles.pokemonImage}
-            />
-          </div>
-          <div className={styles.pokemonInfo}>
-            <div className={styles.pokemonName}>bulbasor</div>
-            <div className={styles.types}>
-              <span className={styles.type + ' poison'}>Poison</span>
-              <span className={styles.type + ' grass'}>Poison</span>
-              <span className={styles.type + ' water'}>Poison</span>
-            </div>
-          </div>
-        </div>
-        <div className={styles.teamPokemon}>
-          <div className={styles.imageCont}>
-            <img
-              src={'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png'}
-              alt="pokemon"
-              className={styles.pokemonImage}
-            />
-          </div>
-          <div className={styles.pokemonInfo}>
-            <div className={styles.pokemonName}>bulbasor</div>
-            <div className={styles.types}>
-              <span className={styles.type + ' poison'}>Poison</span>
-              <span className={styles.type + ' grass'}>Poison</span>
-              <span className={styles.type + ' water'}>Poison</span>
-            </div>
-          </div>
-        </div>
-        <div className={styles.teamPokemon}>
-          <div className={styles.imageCont}>
-            <img
-              src={'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png'}
-              alt="pokemon"
-              className={styles.pokemonImage}
-            />
-          </div>
-          <div className={styles.pokemonInfo}>
-            <div className={styles.pokemonName}>bulbasor</div>
-            <div className={styles.types}>
-              <span className={styles.type + ' poison'}>Poison</span>
-              <span className={styles.type + ' grass'}>Poison</span>
-              <span className={styles.type + ' water'}>Poison</span>
-            </div>
-          </div>
-        </div>
-        <div className={styles.teamPokemon}>
-          <div className={styles.imageCont}>
-            <img
-              src={
-                'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/11.png'
-              }
-              alt="pokemon"
-              className={styles.pokemonImage}
-            />
-          </div>
-          <div className={styles.pokemonInfo}>
-            <div className={styles.pokemonName}>bulbasor</div>
-            <div className={styles.types}>
-              <span className={styles.type + ' poison'}>Poison</span>
-              <span className={styles.type + ' grass'}>Poison</span>
-              <span className={styles.type + ' water'}>Poison</span>
-            </div>
-          </div>
-        </div>
-        <div className={styles.teamPokemon}>
-          <div className={styles.imageCont}>
-            <img
-              src={
-                'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/111.png'
-              }
-              alt="pokemon"
-              className={styles.pokemonImage}
-            />
-          </div>
-          <div className={styles.pokemonInfo}>
-            <div className={styles.pokemonName}>bulbasor</div>
-            <div className={styles.types}>
-              <span className={styles.type + ' poison'}>Poison</span>
-              <span className={styles.type + ' grass'}>Poison</span>
-              <span className={styles.type + ' water'}>Poison</span>
-            </div>
-          </div>
-        </div>
-        <div className={styles.teamPokemon}>
-          <div className={styles.imageCont}>
-            <img
-              src={
-                'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/999.png'
-              }
-              alt="pokemon"
-              className={styles.pokemonImage}
-            />
-          </div>
-          <div className={styles.pokemonInfo}>
-            <div className={styles.pokemonName}>bulbasor</div>
-            <div className={styles.types}>
-              <span className={styles.type + ' poison'}>Poison</span>
-              <span className={styles.type + ' grass'}>Poison</span>
-              <span className={styles.type + ' water'}>Poison</span>
-            </div>
-          </div>
-        </div>
+          );
+        })}
       </div>
     </div>
   );

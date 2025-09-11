@@ -6,6 +6,7 @@ import type { RootState } from '../store';
 type UserState = {
   user: {
     city?: string;
+    team?: string[];
   } & Partial<UserInfo>;
 };
 
@@ -14,6 +15,7 @@ const initialUserState: UserState = {
     displayName: '',
     email: '',
     photoURL: '',
+    team: [],
   },
 };
 
@@ -35,6 +37,7 @@ export const userSlice = createSlice({
 
 export const selectUser = (state: RootState) => state.user.user;
 export const selectIsUserExist = (state: RootState) => !!state.user.user.uid;
+export const selectTeam = (state: RootState) => state.user.user.team;
 
 export const userReducer = userSlice.reducer;
 export const { addUser, changeUserPicture } = userSlice.actions;

@@ -34,11 +34,20 @@ export function useAllPokemonsByNames(names?: string[]) {
     })),
   });
 }
+export function useAllPokemonsByIds(ids?: string[]) {
+  return useQueries({
+    queries: (ids ?? []).map((id) => ({
+      queryKey: ['pokemon', id],
+      queryFn: () => fetchPokemonById(Number(id)),
+      enabled: !!id,
+    })),
+  });
+}
 
 export function usePokemonById(id?: number) {
   return useQuery({
     queryKey: ['pokemon', id],
-    queryFn: () => fetchPokemonById(id!),
+    queryFn: () => fetchPokemonById(id),
     enabled: !!id,
   });
 }
