@@ -1,0 +1,60 @@
+.teamContainer {
+  padding: 20px;
+  display: grid;
+  row-gap: 10px;
+}
+
+.teamPokemon {
+  background-color: rgb(246, 246, 246);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.43);
+  padding: 0 10px;
+  border-radius: 20px;
+  height: 200px;
+  display: flex;
+  justify-content: space-between;
+}
+.pokemonName {
+  font-size: 30px;
+  font-weight: 700;
+  width: 50%;
+  margin-bottom: 20px;
+}
+.pokemonInfo {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+
+.imageCont {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  .pokemonImage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    object-fit: cover;
+  }
+}
+
+.types {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  .type {
+    color: white;
+    border-radius: 20px;
+    padding: 4px 6px;
+  }
+}
+
+.statHeading {
+  font-size: 20px;
+}
+.underLine {
+  width: 100%;
+  height: 1px;
+  border-top: 1px solid gray;
+}

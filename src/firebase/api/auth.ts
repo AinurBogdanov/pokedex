@@ -1,4 +1,4 @@
-import { ref, set } from 'firebase/database';
+import { ref, set, update } from 'firebase/database';
 import type { AppDispatch } from '../../redux/store';
 import {
   signInWithEmailAndPassword,
@@ -7,7 +7,7 @@ import {
   signInWithPopup,
   signOut,
 } from 'firebase/auth';
-import { addUser } from '../../redux/user/userSlice';
+import { addUser, changeUserPicture } from '../../redux/user/userSlice';
 import {} from 'firebase/auth';
 import type { SignInParams } from '../../pages/Auth/formsTypes';
 import { auth, db, googleAuthProvider } from '../firebase';
@@ -40,6 +40,11 @@ export async function registerUser({
   const updatedUser = auth.currentUser;
   if (updatedUser) {
     const { email, displayName, phoneNumber, photoURL, providerId, uid } = updatedUser;
+
+    // const { email, displayName, phoneNumber, photoURL, providerId, } = updatedUser;
+    // нужно фетчить юзера из БДы
+
+    // нужно совать в редакс юзера из дб
     dispatch(addUser({ user: { email, displayName, phoneNumber, photoURL, providerId, uid } }));
     return updatedUser;
   }
@@ -59,15 +64,31 @@ export function signInWithGoogle(method: 'SignIn' | 'SignUp') {
   return signInWithPopup(auth, googleAuthProvider)
     .then((userCredential) => {
       const { displayName, email, photoURL } = userCredential.user;
-      set(ref(db, 'users/' + userCredential.user.uid), {
-        displayName,
-        email,
-        profile_picture: photoURL,
-      });
+      //проблема в том что тут необходимо по сути добавлять юзера в БД но проблема в том что если юзер уже зареган то не не надо его по нововой сетить в БД  нужно просто акксес дать
+      if (method === 'SignUp') {
+        set(ref(db, 'users/' + userCredential.user.uid), {
+          displayName,
+          email,
+          photoURL: photoURL,
+        });
+      }
       alert(`${method}`);
     })
     .catch((error) => console.log(error));
 }
 export function signOutUser() {
   signOut(auth);
+}
+
+export function updatePhotoUrl(userId: string, newPhotoUrl: string, dispatch: AppDispatch) {
+  const userRef = ref(db, 'users/' + userId);
+  update(userRef, {
+    photoURL: newPhotoUrl,
+  })
+    .then(() => {
+      dispatch(changeUserPicture(newPhotoUrl));
+    })
+    .catch((error) => {
+      console.error('Update failed:', error);
+    });
 }

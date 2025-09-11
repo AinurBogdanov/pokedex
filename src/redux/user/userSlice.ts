@@ -5,23 +5,15 @@ import type { RootState } from '../store';
 
 type UserState = {
   user: {
-    firstName?: string;
-    lastName?: string;
     city?: string;
-  } & UserInfo;
+  } & Partial<UserInfo>;
 };
 
 const initialUserState: UserState = {
   user: {
-    email: '',
-    firstName: '',
-    lastName: '',
-    city: '',
     displayName: '',
-    phoneNumber: '',
+    email: '',
     photoURL: '',
-    providerId: '',
-    uid: '',
   },
 };
 
@@ -35,6 +27,9 @@ export const userSlice = createSlice({
       // and then save it all to state
       state.user = action.payload.user;
     },
+    changeUserPicture: (state, action: PayloadAction<string>) => {
+      state.user.photoURL = action.payload;
+    },
   },
 });
 
@@ -42,4 +37,4 @@ export const selectUser = (state: RootState) => state.user.user;
 export const selectIsUserExist = (state: RootState) => !!state.user.user.uid;
 
 export const userReducer = userSlice.reducer;
-export const { addUser } = userSlice.actions;
+export const { addUser, changeUserPicture } = userSlice.actions;
