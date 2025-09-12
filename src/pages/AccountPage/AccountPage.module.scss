@@ -1,8 +1,8 @@
 .wrapper {
   max-width: 1250px;
   margin: 0 auto;
-  padding-top: variables.$header-height;
-  background-color: variables.$white-bg-color;
+  padding-top: $header-height;
+  background-color: $white-bg-color;
   min-height: 100vh;
   display: grid;
   grid-template-columns: 0.3fr 1fr;
@@ -13,7 +13,7 @@
 }
 .heading {
   grid-area: heading;
-  // background-color: variables.$light-gray-bg-color;
+  // background-color: $light-gray-bg-color;
   padding: 10px 30px;
   border-bottom: 3px solid rgba(128, 128, 128, 0.192);
   .h1 {
@@ -115,15 +115,6 @@
 }
 .uploadImageIconMobile {
   display: none;
-}
-.signOutButton {
-  background-color: red;
-  cursor: pointer;
-  border: none;
-  color: white;
-  padding: 10px 0;
-  font-size: 20px;
-  border-radius: 5px;
 }
 @media (max-width: 786px) {
   .accountInfo {

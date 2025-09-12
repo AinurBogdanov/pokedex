@@ -4,9 +4,16 @@ import styles from './Team.module.scss';
 import { useAllPokemonsByIds } from '../../../hooks/queries/pokemon';
 
 export function Team() {
-  const teamIds = useSelector(selectTeam);
-  console.log(teamIds);
-  const res = useAllPokemonsByIds(teamIds);
+  const teamFromStorage = useSelector(selectTeam) || {};
+
+  const allPokemons = Object.keys(teamFromStorage);
+
+  const teamPokemonsIds = allPokemons.map((pok) => {
+    return teamFromStorage[pok].pokemonId;
+  });
+
+  const res = useAllPokemonsByIds(teamPokemonsIds);
+
   const team = res.map((pokemonRes) => {
     return pokemonRes?.data?.data;
   });
@@ -15,13 +22,12 @@ export function Team() {
 
   return (
     <div>
-      <h1>Team</h1>
       <div className={styles.teamContainer}>
         {team.map((pokemon) => {
           if (!pokemon) return 'Pokemon not found';
 
           return (
-            <div className={styles.teamPokemon}>
+            <div key={pokemon.name} className={styles.teamPokemon}>
               <div className={styles.imageCont}>
                 <img
                   src={pokemon.sprites.front_default}

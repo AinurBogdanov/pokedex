@@ -3,9 +3,18 @@ import styles from './PokemonPage.module.scss';
 import { usePokemonByName, usePokemonSpecies } from '../../hooks/queries/pokemon';
 import { PokemonPageHeader } from './PokemonPageHeader/pokemonPageHeader';
 import { Evolutions } from './Evolutions';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUserId } from '../../redux/user/userSlice';
+import { addToTeam } from '../../firebase/api/db';
+import React from 'react';
 
 export function PokemonPage() {
   const params = useParams();
+  const userId = useSelector(selectUserId);
+  const [addPokemonIsLoading, setAddPokemonIsLoading] = React.useState(false);
+
+  const dispatch = useDispatch();
+
   const { data: pokemonData, isLoading } = usePokemonByName(params.name);
 
   const pokemonId = pokemonData?.data.id;
@@ -15,6 +24,18 @@ export function PokemonPage() {
   const pokemon = pokemonData?.data;
 
   if (!pokemon || isLoading || !pokemonData || !speciesData) return <>Loading ...</>;
+
+  ///add motherfucker to team
+  async function addMotherfucker(mfId: number) {
+    if (!userId) return;
+    setAddPokemonIsLoading(true);
+    const result = await addToTeam(userId, mfId, dispatch);
+    setAddPokemonIsLoading(false);
+    if (!result.success) {
+      alert(result.message);
+    }
+  }
+
   return (
     <div className={styles.pageWrap}>
       <PokemonPageHeader pokemon={pokemon} />
@@ -91,6 +112,13 @@ export function PokemonPage() {
                 );
               })}
             </div>
+            <button
+              disabled={addPokemonIsLoading}
+              className={styles.addMFButton}
+              onClick={() => addMotherfucker(pokemon.id)}
+            >
+              {addPokemonIsLoading ? 'Loading ...' : 'Add to team'}
+            </button>
           </div>
         </div>
         <Evolutions pokemonId={pokemonId} evolutionUrl={evolutionUrl} />

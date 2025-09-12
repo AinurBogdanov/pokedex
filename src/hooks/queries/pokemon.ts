@@ -28,17 +28,18 @@ export function useAllPokemonsByNames(names?: string[]) {
   // console.log(names);
   return useQueries({
     queries: (names ?? []).map((name) => ({
-      queryKey: ['pokemon', name],
+      queryKey: ['pokemonByName', name],
       queryFn: () => fetchPokemonByName(name),
       enabled: !!name,
     })),
   });
 }
-export function useAllPokemonsByIds(ids?: string[]) {
+export function useAllPokemonsByIds(ids?: number[]) {
+  const uniqueIds = [...new Set(ids)];
   return useQueries({
-    queries: (ids ?? []).map((id) => ({
+    queries: (uniqueIds ?? []).map((id) => ({
       queryKey: ['pokemon', id],
-      queryFn: () => fetchPokemonById(Number(id)),
+      queryFn: () => fetchPokemonById(id),
       enabled: !!id,
     })),
   });

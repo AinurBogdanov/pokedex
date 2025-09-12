@@ -6,12 +6,20 @@ import { Team } from './Team/Team';
 
 export default function AccountPage() {
   const params = useParams();
-  const currentPage = params['*'];
+  const currentPage = params['*']
+    ?.split('/')
+    .map((c, i) => {
+      if (i === 0) {
+        return c.charAt(0).toUpperCase() + c.slice(1);
+      }
+      return c;
+    })
+    .join(' ');
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.heading}>
-        <h1 className={styles.h1}>Account</h1>
+        <h1 className={styles.h1}>{currentPage === '' ? 'Account' : currentPage}</h1>
       </div>
       <aside className={styles.sideBar}>
         <Link
@@ -25,7 +33,7 @@ export default function AccountPage() {
         <Link
           to="/account/team"
           className={
-            styles.sideBarLink + (currentPage === 'team' ? ' ' + styles.sideBarLinkActive : '')
+            styles.sideBarLink + (currentPage === 'Team' ? ' ' + styles.sideBarLinkActive : '')
           }
         >
           Team
@@ -33,7 +41,7 @@ export default function AccountPage() {
         <Link
           to="/account/settings"
           className={
-            styles.sideBarLink + (currentPage === 'settings' ? ' ' + styles.sideBarLinkActive : '')
+            styles.sideBarLink + (currentPage === 'Settings' ? ' ' + styles.sideBarLinkActive : '')
           }
         >
           Settings

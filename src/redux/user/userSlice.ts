@@ -3,10 +3,14 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import type { UserInfo } from 'firebase/auth';
 import type { RootState } from '../store';
 
+type Team = {
+  [slot: string]: { level: number; pokemonId: number };
+};
+
 type UserState = {
   user: {
     city?: string;
-    team?: string[];
+    team?: Team;
   } & Partial<UserInfo>;
 };
 
@@ -15,7 +19,7 @@ const initialUserState: UserState = {
     displayName: '',
     email: '',
     photoURL: '',
-    team: [],
+    team: {},
   },
 };
 
@@ -32,12 +36,16 @@ export const userSlice = createSlice({
     changeUserPicture: (state, action: PayloadAction<string>) => {
       state.user.photoURL = action.payload;
     },
+    updateTeam: (state, action: PayloadAction<Team>) => {
+      state.user.team = action.payload;
+    },
   },
 });
 
 export const selectUser = (state: RootState) => state.user.user;
 export const selectIsUserExist = (state: RootState) => !!state.user.user.uid;
 export const selectTeam = (state: RootState) => state.user.user.team;
+export const selectUserId = (state: RootState) => state.user.user.uid;
 
 export const userReducer = userSlice.reducer;
-export const { addUser, changeUserPicture } = userSlice.actions;
+export const { addUser, changeUserPicture, updateTeam } = userSlice.actions;

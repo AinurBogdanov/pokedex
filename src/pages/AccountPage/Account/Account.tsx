@@ -1,7 +1,7 @@
 import styles from '../AccountPage.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../../../redux/user/userSlice';
-import { updatePhotoUrl } from '../../../firebase/api/auth';
+import { updatePhotoUrl } from '../../../firebase/api/db';
 
 export function Account() {
   const user = useSelector(selectUser);

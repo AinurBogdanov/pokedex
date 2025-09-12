@@ -1,0 +1,71 @@
+.settingsCont {
+  padding: 60px;
+}
+.section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 60px;
+  border-bottom: 1px solid rgba(175, 175, 175, 0.639);
+  font-size: 16px;
+}
+.input {
+  color: gray;
+  border: none;
+  cursor: default;
+  background-color: transparent;
+  &:focus {
+    outline: none;
+  }
+}
+.editBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: green;
+  cursor: pointer;
+}
+
+//settings toggle
+$width: 50px;
+$height: $width/2;
+$success_color: rgb(58, 193, 9);
+.labelToggle {
+  .toggleControl {
+    transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+    width: $width;
+    height: $height;
+    display: block;
+    border: 2px solid white;
+    border-radius: $width;
+    background-color: black;
+    position: relative;
+    &:after {
+      transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+      content: '';
+      width: $width/2;
+      height: $height;
+      display: block;
+      background-color: #fff;
+      border-radius: 50%;
+      position: absolute;
+      top: -2px;
+      box-shadow: 0px 0px 0px black, 0px 1px 1px black;
+      left: 0;
+    }
+    cursor: pointer;
+  }
+}
+.toggleInput {
+  display: none;
+  &:checked + .toggleControl {
+    border-color: $success_color;
+    background-color: $success_color;
+    &:after {
+      left: $width/2;
+    }
+  }
+}
+.toggleControl {
+}

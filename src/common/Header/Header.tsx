@@ -2,6 +2,7 @@ import { Link } from 'react-router';
 import styles from './Header.module.scss';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../redux/user/userSlice';
+import { MobileMenu } from '../MobileMenu/MobileMenu';
 
 export function Header() {
   const user = useSelector(selectUser);
@@ -11,12 +12,14 @@ export function Header() {
       <Link className={styles.logoCont} to="/">
         <img className={styles.logo} src="/images/logo.png" alt="logo" />
       </Link>
+
+      <MobileMenu />
       <div className={styles.nav}>
         <Link className={styles.link} to="/">
           Pokemons
         </Link>
-        <Link className={styles.link} to="/">
-          Pokedex
+        <Link className={styles.link} to="/users">
+          Users
         </Link>
         <Link className={styles.link + ' ' + styles.accountLink} to="/account">
           Account

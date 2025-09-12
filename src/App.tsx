@@ -6,6 +6,7 @@ import { Layout } from './layout/layout';
 import PrivateRoutes from './guard/PrivateRoutes';
 import Account from './pages/AccountPage/AccountPage';
 import { useAuthUser } from './firebase/hooks/useAuthUser';
+import { Users } from './pages/UsersPage/UsersPage';
 
 function App() {
   const userLoading = useAuthUser();
@@ -21,6 +22,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<PokemonsPage />} />
             <Route path="/pokemon/:name" element={<PokemonPage />} />
+            <Route path="/users" element={<Users />} />
             <Route path="/account/*" element={<Account />} />
           </Route>
         </Route>

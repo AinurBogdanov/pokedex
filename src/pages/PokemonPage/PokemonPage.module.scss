@@ -2,8 +2,8 @@
   min-height: 100dvh;
   max-width: 1250px;
   margin: 0 auto;
-  padding-top: variables.$header-height;
-  background-color: variables.$white-bg-color;
+  padding-top: $header-height;
+  background-color: $white-bg-color;
   background-image: url(/images/container_bg.png);
 }
 
@@ -94,7 +94,7 @@
   left: -133px;
 }
 .number {
-  color: variables.$gray-text-color;
+  color: $gray-text-color;
 }
 
 .mainContent {
@@ -126,7 +126,7 @@
   height: 250px;
   width: 100%;
   border-radius: 10px;
-  background-color: variables.$gray-bg-color;
+  background-color: $gray-bg-color;
   padding: 15px;
   display: flex;
   flex-direction: column;
@@ -173,9 +173,10 @@
 }
 .infoBlock {
   width: 50%;
+  position: relative;
 }
 .info {
-  background-color: variables.$blue-bg-color;
+  background-color: $blue-bg-color;
   height: 190px;
   min-width: 264px;
   font-size: 20px;
@@ -191,7 +192,7 @@
   gap: 5px;
 }
 .key {
-  color: variables.$white-text-color;
+  color: $white-text-color;
 }
 .value {
   font-weight: 400;
@@ -212,6 +213,33 @@
   font-size: 20px;
   text-align: center;
   border-radius: 5px;
+}
+
+.addMFButton {
+  color: white;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(0, 187, 255);
+  box-shadow: 0 0 10px black;
+  position: absolute;
+  cursor: pointer;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 50px;
+
+  &:hover {
+    box-shadow: 0 0 15px black;
+    background-color: rgb(6, 167, 225);
+  }
+  &:active {
+    background-color: rgb(0, 187, 255);
+    box-shadow: 0 0 10px black;
+  }
+  &:disabled {
+    background-color: gray;
+  }
 }
 //
 .evolutions {
@@ -263,18 +291,17 @@
   border-top: 10px solid white;
   transform: rotate(45deg);
 }
-
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
   .mainContent {
-    flex-direction: column;
+    width: 95%;
   }
+}
+@media (max-width: 768px) {
   .imageHolder {
     img {
       max-height: 400px;
     }
   }
-}
-@media (max-width: 650px) {
   .roundingRight,
   .roundingLeft {
     display: none;
@@ -287,8 +314,39 @@
     background-color: transparent;
   }
 }
+@media (max-width: 700px) {
+  .topContent {
+    flex-direction: column;
+  }
+  .infoBlock {
+    width: 100%;
+  }
+  .addMFButton {
+    position: inherit;
+    margin-top: 20px;
+  }
+  .nameAndNumber {
+    width: fit-content;
+  }
+}
 @media (max-width: 630px) {
   .pokemonId {
     display: none;
+  }
+}
+
+@media (max-width: 460px) {
+  .statName {
+    height: 30px;
+    width: fit-content;
+    transform: rotate(-50deg) translateX(-40%);
+    position: relative;
+    color: black;
+    font-weight: 700;
+  }
+  .stats {
+    height: 280px;
+    margin-bottom: 30px;
+    justify-content: start;
   }
 }

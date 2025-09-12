@@ -1,4 +1,4 @@
-import { ref, set, update } from 'firebase/database';
+import { ref, set } from 'firebase/database';
 import type { AppDispatch } from '../../redux/store';
 import {
   signInWithEmailAndPassword,
@@ -7,7 +7,7 @@ import {
   signInWithPopup,
   signOut,
 } from 'firebase/auth';
-import { addUser, changeUserPicture } from '../../redux/user/userSlice';
+import { addUser } from '../../redux/user/userSlice';
 import {} from 'firebase/auth';
 import type { SignInParams } from '../../pages/Auth/formsTypes';
 import { auth, db, googleAuthProvider } from '../firebase';
@@ -78,17 +78,4 @@ export function signInWithGoogle(method: 'SignIn' | 'SignUp') {
 }
 export function signOutUser() {
   signOut(auth);
-}
-
-export function updatePhotoUrl(userId: string, newPhotoUrl: string, dispatch: AppDispatch) {
-  const userRef = ref(db, 'users/' + userId);
-  update(userRef, {
-    photoURL: newPhotoUrl,
-  })
-    .then(() => {
-      dispatch(changeUserPicture(newPhotoUrl));
-    })
-    .catch((error) => {
-      console.error('Update failed:', error);
-    });
 }

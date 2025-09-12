@@ -1,23 +1,16 @@
-import { useNavigate } from 'react-router';
-import { signOutUser } from '../../../firebase/api/auth';
-import styles from '../AccountPage.module.scss';
-
+import settingsStyles from './Settings.module.scss';
+import { InputSection } from './SettingsInput';
+import { InputToggleSection } from './SettingsToggleInput';
 export function Settings() {
-  const navigate = useNavigate();
-
-  function onSignOut() {
-    if (confirm('are you sure you want to log out') === true) {
-      signOutUser();
-      navigate('/auth');
-    }
-  }
-
   return (
-    <>
-      <h1>Settings</h1>
-      <button className={styles.signOutButton} onClick={onSignOut}>
+    <div className={settingsStyles.settingsCont}>
+      <InputSection param="Display name" value="Ainur Bogdanov" />
+      <InputSection param={'Gmail'} value={'ainurBogdanov69@gmail.com'} />
+      <InputToggleSection param={'Dark theme'} value={'off'} />
+      {/* <div className={settingsStyles.currentName}>Ainur</div> */}
+      {/* <button className={styles.signOutButton} onClick={onSignOut}>
         Sign out
-      </button>
-    </>
+      </button> */}
+    </div>
   );
 }

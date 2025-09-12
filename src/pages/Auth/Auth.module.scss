@@ -2,8 +2,8 @@
   min-height: 100dvh;
   width: 80%;
   margin: 0 auto;
-  padding-top: variables.$header-height;
-  background-color: variables.$white-bg-color;
+  padding-top: $header-height;
+  background-color: $white-bg-color;
   background-image: url(/images/bg-pokemons.avif);
   background-repeat: no-repeat;
   background-size: cover;
