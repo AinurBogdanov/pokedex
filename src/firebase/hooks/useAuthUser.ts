@@ -6,7 +6,8 @@ import { getAndSaveUser } from '../api/db';
 import { useNavigate } from 'react-router';
 
 export function useAuthUser() {
-  const [userLoading, setUserLoading] = React.useState<boolean>(true);
+  const [userLoading, setUserLoading] = React.useState<boolean>(false);
+
   const auth = getAuth();
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
@@ -14,14 +15,17 @@ export function useAuthUser() {
 
   React.useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUserLoading(true);
       if (currentUser) {
         const { uid } = currentUser;
         getAndSaveUser(uid, dispatch).then(() => {
-          setUserLoading(false);
           navigate('/');
         });
       }
-      if (!currentUser) console.log('current user нема');
+      if (!currentUser) {
+        console.log('current user нема');
+      }
+      setUserLoading(false);
     });
 
     return () => unsubscribe();

@@ -29,7 +29,7 @@
 
 //settings toggle
 $width: 50px;
-$height: $width/2;
+$height: calc($width/2);
 $success_color: rgb(58, 193, 9);
 .labelToggle {
   .toggleControl {
@@ -44,7 +44,7 @@ $success_color: rgb(58, 193, 9);
     &:after {
       transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
       content: '';
-      width: $width/2;
+      width: calc($width/2);
       height: $height;
       display: block;
       background-color: #fff;
@@ -63,7 +63,7 @@ $success_color: rgb(58, 193, 9);
     border-color: $success_color;
     background-color: $success_color;
     &:after {
-      left: $width/2;
+      left: calc($width/2);
     }
   }
 }
