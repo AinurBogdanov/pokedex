@@ -16,8 +16,10 @@ export function useAuthUser() {
   React.useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUserLoading(true);
+
       if (currentUser) {
         const { uid } = currentUser;
+
         getAndSaveUser(uid, dispatch).then(() => {
           navigate('/');
         });

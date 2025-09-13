@@ -41,11 +41,8 @@ export async function registerUser({
   if (updatedUser) {
     const { email, displayName, phoneNumber, photoURL, providerId, uid } = updatedUser;
 
-    // const { email, displayName, phoneNumber, photoURL, providerId, } = updatedUser;
-    // нужно фетчить юзера из БДы
-
-    // нужно совать в редакс юзера из дб
-    dispatch(addUser({ user: { email, displayName, phoneNumber, photoURL, providerId, uid } }));
+    const user = { email, displayName, phoneNumber, photoURL, providerId, uid };
+    dispatch(addUser(user));
     return updatedUser;
   }
 
@@ -64,7 +61,7 @@ export function signInWithGoogle(method: 'SignIn' | 'SignUp') {
   return signInWithPopup(auth, googleAuthProvider)
     .then((userCredential) => {
       const { displayName, email, photoURL } = userCredential.user;
-      //проблема в том что тут необходимо по сути добавлять юзера в БД но проблема в том что если юзер уже зареган то не не надо его по нововой сетить в БД  нужно просто акксес дать
+
       if (method === 'SignUp') {
         set(ref(db, 'users/' + userCredential.user.uid), {
           displayName,

@@ -1,9 +1,15 @@
-import { useSelector } from 'react-redux';
-import { selectTeam } from '../../../redux/user/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectTeam, selectUserId } from '../../../redux/user/userSlice';
 import styles from './Team.module.scss';
 import { useAllPokemonsByIds } from '../../../hooks/queries/pokemon';
+import type { PokemonId } from '../../../redux/@types';
+import { deleteFromTeam } from '../../../firebase/api/db';
+import { useAppSelector } from '../../../redux/store';
 
 export function Team() {
+  const dispatch = useDispatch();
+  const uid = useAppSelector(selectUserId);
+
   const teamFromStorage = useSelector(selectTeam) || {};
 
   const allPokemons = Object.keys(teamFromStorage);
@@ -17,6 +23,14 @@ export function Team() {
   const team = res.map((pokemonRes) => {
     return pokemonRes?.data?.data;
   });
+
+  function onDeletePokemon(pokId: PokemonId) {
+    if (confirm('delete ?') === true) {
+      if (uid) {
+        deleteFromTeam(uid, pokId, dispatch);
+      }
+    }
+  }
 
   if (!team || team.length === 0) return '';
 
@@ -47,6 +61,12 @@ export function Team() {
                   })}
                 </div>
               </div>
+              <button
+                onClick={() => onDeletePokemon(pokemon.id)}
+                className={styles.deletePokemonBtn + ' btn'}
+              >
+                ❌
+              </button>
             </div>
           );
         })}

@@ -3,6 +3,7 @@ import type { AppDispatch } from '../../redux/store';
 import { addUser, changeUserPicture, updateTeam } from '../../redux/user/userSlice';
 import { app } from '../firebase';
 import { addUsers } from '../../redux/users/usersSlice';
+import type { PokemonId, Team, UserId } from '../../redux/@types';
 
 const db = getDatabase(app);
 
@@ -15,7 +16,8 @@ export async function getAndSaveUser(uid: string, dispatch: AppDispatch) {
     if (snapshot.exists()) {
       const user = snapshot.val();
       user.uid = uid;
-      await dispatch(addUser({ user }));
+      console.log(user);
+      await dispatch(addUser(user));
     } else {
       console.log('No data available');
     }
@@ -37,7 +39,7 @@ export function updatePhotoUrl(userId: string, newPhotoUrl: string, dispatch: Ap
     });
 }
 
-export const addToTeam = async (userId: string, newPokemonId: number, dispatch: AppDispatch) => {
+export const addToTeam = async (userId: UserId, newPokemonId: PokemonId, dispatch: AppDispatch) => {
   try {
     const userRef = ref(db, 'users/' + userId);
     const snapshot = await get(userRef);
@@ -94,6 +96,20 @@ export const addToTeam = async (userId: string, newPokemonId: number, dispatch: 
       message: 'Произошла ошибка при добавлении покемона',
       error: 'SERVER_ERROR',
     };
+  }
+};
+export const deleteFromTeam = async (userId: UserId, pokId: PokemonId, dispatch: AppDispatch) => {
+  const userRef = ref(db, 'users/' + userId);
+  const snapshot = await get(userRef);
+
+  if (snapshot.exists()) {
+    const userData = snapshot.val();
+    const currentTeam = (userData.team as Team) || {};
+    delete currentTeam[`pokemon${pokId}`];
+    const updatedTeam = currentTeam;
+
+    await update(userRef, { team: updatedTeam });
+    dispatch(updateTeam(updatedTeam));
   }
 };
 

@@ -13,6 +13,3 @@ const PrivateRoutes = () => {
 };
 
 export default PrivateRoutes;
-
-//123456
-//"bogdanovainur50@gmail.com"

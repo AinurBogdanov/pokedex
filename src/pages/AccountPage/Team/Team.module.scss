@@ -8,54 +8,66 @@
   display: grid;
   row-gap: 2vw;
   max-width: 99%;
-}
 
-.teamPokemon {
-  background-color: rgb(246, 246, 246);
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.43);
-  padding: 0 10px;
-  border-radius: 20px;
-  height: 20vw;
-  min-height: 150px;
-  display: flex;
-  justify-content: space-between;
-}
-.pokemonName {
-  font-size: clamp(15px, 2.5vw, 80px);
-  font-weight: 700;
-  padding-top: 10px;
-  margin-bottom: 20px;
-}
-.pokemonInfo {
-  display: flex;
-  flex-direction: column;
-  width: 40%;
-}
+  .teamPokemon {
+    position: relative;
+    background-color: rgb(246, 246, 246);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.43);
+    padding: 0 10px;
+    border-radius: 20px;
+    height: 20vw;
+    min-height: 150px;
+    display: flex;
+    justify-content: space-between;
 
-.imageCont {
-  position: relative;
-  width: 60%;
-  overflow: hidden;
-  .pokemonImage {
-    min-width: 80%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    object-fit: cover;
-  }
-}
+    .pokemonName {
+      font-size: clamp(15px, 2.5vw, 80px);
+      font-weight: 700;
+      padding-top: 10px;
+      margin-bottom: 20px;
+    }
+    .pokemonInfo {
+      display: flex;
+      flex-direction: column;
+      width: 40%;
+    }
 
-.types {
-  display: flex;
-  gap: 5%;
-  flex-wrap: wrap;
+    .imageCont {
+      position: relative;
+      width: 60%;
+      overflow: hidden;
+      .pokemonImage {
+        min-width: 80%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        object-fit: cover;
+      }
+    }
 
-  .type {
-    color: white;
-    border-radius: 5%;
-    padding: 5% 5%;
-    font-size: clamp(15px, 1.7vw, 80px);
+    .types {
+      display: flex;
+      gap: 5%;
+      flex-wrap: wrap;
+
+      .type {
+        color: white;
+        border-radius: 5%;
+        padding: 5% 5%;
+        font-size: clamp(15px, 1.7vw, 80px);
+      }
+    }
+    .deletePokemonBtn {
+      padding: 4px;
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background-color: rgb(255, 255, 255);
+      &:hover {
+        background-color: rgba(232, 232, 232, 0);
+      }
+    }
   }
 }
 
