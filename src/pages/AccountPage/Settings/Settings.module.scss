@@ -1,14 +1,20 @@
+:root {
+  --width: 50px;
+  --height: calc(var(--width) / 2);
+  --success_color: rgb(58, 193, 9);
+}
+
 .settingsCont {
-  padding: 60px;
+  padding: clamp(6px, 5vw, 60px);
 }
 .section {
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  height: 60px;
+  padding: 1.2vw;
   border-bottom: 1px solid rgba(175, 175, 175, 0.639);
-  font-size: 16px;
+  font-size: clamp(16px, 2vw, 32px);
 }
 .input {
   color: gray;
@@ -28,24 +34,23 @@
 }
 
 //settings toggle
-$width: 50px;
-$height: calc($width/2);
-$success_color: rgb(58, 193, 9);
+
 .labelToggle {
+  user-select: none;
   .toggleControl {
     transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
-    width: $width;
-    height: $height;
+    width: var(--width);
+    height: var(--height);
     display: block;
     border: 2px solid white;
-    border-radius: $width;
+    border-radius: var(--width);
     background-color: black;
     position: relative;
     &:after {
       transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
       content: '';
-      width: calc($width/2);
-      height: $height;
+      width: calc(var(--width) / 2);
+      height: var(--height);
       display: block;
       background-color: #fff;
       border-radius: 50%;
@@ -60,12 +65,16 @@ $success_color: rgb(58, 193, 9);
 .toggleInput {
   display: none;
   &:checked + .toggleControl {
-    border-color: $success_color;
-    background-color: $success_color;
+    border-color: var(--success_color);
+    background-color: var(--success_color);
     &:after {
-      left: calc($width/2);
+      left: calc(var(--width) / 2);
     }
   }
 }
-.toggleControl {
+
+@media (min-width: 2000px) {
+  :root {
+    --width: 64px;
+  }
 }

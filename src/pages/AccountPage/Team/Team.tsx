@@ -21,7 +21,7 @@ export function Team() {
   if (!team || team.length === 0) return '';
 
   return (
-    <div>
+    <>
       <div className={styles.teamContainer}>
         {team.map((pokemon) => {
           if (!pokemon) return 'Pokemon not found';
@@ -51,7 +51,7 @@ export function Team() {
           );
         })}
       </div>
-    </div>
+    </>
   );
 }
 

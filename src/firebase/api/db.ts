@@ -2,6 +2,7 @@ import { getDatabase, ref, get, update } from 'firebase/database';
 import type { AppDispatch } from '../../redux/store';
 import { addUser, changeUserPicture, updateTeam } from '../../redux/user/userSlice';
 import { app } from '../firebase';
+import { addUsers } from '../../redux/users/usersSlice';
 
 const db = getDatabase(app);
 
@@ -45,8 +46,15 @@ export const addToTeam = async (userId: string, newPokemonId: number, dispatch: 
       const userData = snapshot.val();
       const currentTeam = userData.team || {};
 
-      const previousTeamLength = Number(Object.keys(currentTeam).length);
+      const currentLength = Number(Object.keys(currentTeam).length);
 
+      if (currentLength >= 6) {
+        return {
+          success: false,
+          message: `Нельзя добавлять больше покемонов`,
+          error: 'Adding new Pokemons is not allowed',
+        };
+      }
       const isTeamHasThisPok = Object.values(currentTeam).some(
         (slot: any) => slot.pokemonId === newPokemonId,
       );
@@ -59,7 +67,7 @@ export const addToTeam = async (userId: string, newPokemonId: number, dispatch: 
 
       const updatedTeam = {
         ...currentTeam,
-        ['pokemon' + (previousTeamLength + 1)]: { pokemonId: newPokemonId, level: 0 },
+        ['pokemon' + newPokemonId]: { pokemonId: newPokemonId, level: 0 },
       };
 
       //add to redux storage
@@ -88,3 +96,19 @@ export const addToTeam = async (userId: string, newPokemonId: number, dispatch: 
     };
   }
 };
+
+export async function getAllUsers(dispatch: AppDispatch) {
+  const usersRef = ref(db, 'users/');
+  const snapshot = await get(usersRef);
+
+  try {
+    if (snapshot.exists()) {
+      const users = snapshot.val();
+      dispatch(addUsers(users));
+    } else {
+      console.log('No data available');
+    }
+  } catch (error) {
+    console.error(error, 'som went wrong');
+  }
+}

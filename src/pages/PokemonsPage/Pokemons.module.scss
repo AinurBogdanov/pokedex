@@ -17,7 +17,7 @@
   position: relative;
 }
 .pokemonCard {
-  min-width: 305px;
+  min-width: 290px;
   position: relative;
   z-index: 10;
   background-color: rgb(246, 246, 246);
@@ -46,6 +46,7 @@
 
       .pokemonImage {
         width: 100%;
+        min-width: 100px;
       }
     }
   }
@@ -104,16 +105,19 @@
     padding: 4px 10px;
   }
 }
-
+@media (max-width: 350px) {
+  .pokemonCard {
+    flex-direction: column;
+    padding: 0 10px;
+  }
+}
 @media (max-width: 425px) {
   .pokemonsContainer {
     .pokemonImage {
       max-height: 300px;
     }
     .pokemonId {
-      display: none;
-    }
-    .name {
+      display: none !important;
     }
   }
 }

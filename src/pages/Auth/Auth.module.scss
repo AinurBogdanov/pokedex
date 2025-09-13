@@ -1,29 +1,45 @@
 .authWrap {
   min-height: 100dvh;
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
-  padding-top: calc(var(--header-height) + 10px);
   background-color: $white-bg-color;
   background-image: url(/images/bg-pokemons.avif);
   background-repeat: no-repeat;
   background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 //forms scss
+
 .form {
   position: relative;
-  width: 40%;
-  margin: 0 auto;
-  background-color: rgba(255, 255, 255, 0.606);
+  min-width: 280px;
+  min-height: 400px;
+  width: 80vw;
+  max-width: 370px;
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 5px;
-  padding: 20px 20px 100px;
+  padding: 20px 20px 110px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  transform: translateY(35%);
   .formHeading {
-    text-align: center;
-    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: clamp(10px, 1.2vh, 20px);
+    .switchFormBtn {
+      color: white;
+      background-color: $blue;
+      border: none;
+      border-radius: 10px;
+      padding: 10px;
+      max-height: fit-content;
+    }
+    .formH1 {
+      text-align: center;
+    }
   }
   .formLabel {
     display: flex;
@@ -34,12 +50,14 @@
     margin: 0 auto;
 
     .formInput {
-      width: 100%;
       padding: 5px 10px;
       border: none;
-    }
-    .formInput:focus {
-      outline: none;
+      box-shadow: -6px 7px 11px 3px #00000085;
+      transition: 0.3s ease;
+      &:focus {
+        transform: scale(1.05);
+        outline: none;
+      }
     }
     .requiredStar {
       width: 8px;
@@ -58,8 +76,26 @@
     gap: 8px;
   }
 }
+.googleVer {
+  word-break: break-word;
+  width: 200px;
+  line-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.googleLogo {
+  width: 30px;
+  aspect-ratio: 1/1;
+}
 .authControl {
   width: 300px;
   display: flex;
   justify-content: space-around;
+}
+@media (min-width: 2000px) {
+  .form {
+    transform: scale(1.5);
+  }
 }

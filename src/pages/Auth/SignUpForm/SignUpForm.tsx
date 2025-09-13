@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { registerUser, signInWithGoogle } from '../../../firebase/api/auth';
 import type { SignUpParams } from '../formsTypes';
 
-export function SignUpForm() {
+export function SignUpForm({ setFormType }: { setFormType: (type: 'signUp' | 'signIn') => void }) {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
@@ -36,8 +36,18 @@ export function SignUpForm() {
   return (
     <>
       <form noValidate onSubmit={handleSubmit(signUpUser)} className={styles.form}>
-        <h1 className={styles.formHeading}>Sign Up</h1>
-        <label className={styles.formLabel}>
+        <div className={styles.formHeading}>
+          <h1 className={styles.formHeading}>Sign Up</h1>
+          <button
+            type="button"
+            onClick={() => setFormType('signIn')}
+            className={styles.switchFormBtn}
+          >
+            Sign in ➡
+          </button>
+        </div>
+
+        <div className={styles.formLabel}>
           <span>
             Name
             <img className={styles.requiredStar} src="/images/reqired_star.png" alt="" />
@@ -50,9 +60,9 @@ export function SignUpForm() {
             type="text"
           />
           {errors.name && <div>{errors.name.message as string}</div>}
-        </label>
+        </div>
 
-        <label className={styles.formLabel}>
+        <div className={styles.formLabel}>
           <span>
             Last name
             <img className={styles.requiredStar} src="/images/reqired_star.png" alt="" />
@@ -65,9 +75,9 @@ export function SignUpForm() {
             type="text"
           />
           {errors.lastName && <div>{errors.lastName.message as string}</div>}
-        </label>
+        </div>
 
-        <label className={styles.formLabel}>
+        <div className={styles.formLabel}>
           <span>
             Password
             <img className={styles.requiredStar} src="/images/reqired_star.png" alt="" />
@@ -81,9 +91,9 @@ export function SignUpForm() {
             type="text"
           />
           {errors.password && <div>{errors.password.message as string}</div>}
-        </label>
+        </div>
 
-        <label className={styles.formLabel}>
+        <div className={styles.formLabel}>
           <span>
             Email
             <img className={styles.requiredStar} src="/images/reqired_star.png" alt="" />
@@ -102,12 +112,13 @@ export function SignUpForm() {
             type="email"
           />
           {errors.email && <div>{errors.email.message as string}</div>}
-        </label>
+        </div>
         <div className={styles.submitBtnCont}>
           <button className={styles.submitBtn + ' btn'}>Submit</button>
-          <button type="button" onClick={onSignUpWithGoogle} className={styles.submitBtn + ' btn'}>
-            Sign up with Google
-          </button>
+          <div onClick={onSignUpWithGoogle} className={styles.googleVer}>
+            <img className={styles.googleLogo} src="/images/google_logo.png" alt="" />
+            Continue with Google
+          </div>
         </div>
       </form>
     </>

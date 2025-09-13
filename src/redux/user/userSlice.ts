@@ -1,20 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { UserInfo } from 'firebase/auth';
 import type { RootState } from '../store';
+import type { LocalUser, Team } from '../@types';
 
-type Team = {
-  [slot: string]: { level: number; pokemonId: number };
-};
-
-type UserState = {
-  user: {
-    city?: string;
-    team?: Team;
-  } & Partial<UserInfo>;
-};
-
-const initialUserState: UserState = {
+const initialUserState: LocalUser = {
   user: {
     displayName: '',
     email: '',
@@ -27,10 +16,7 @@ export const userSlice = createSlice({
   name: 'user',
   initialState: initialUserState,
   reducers: {
-    //fetch user from db and add to state
-    addUser: (state, action: PayloadAction<UserState>) => {
-      //get id from data and fetch user from db
-      // and then save it all to state
+    addUser: (state, action: PayloadAction<LocalUser>) => {
       state.user = action.payload.user;
     },
     changeUserPicture: (state, action: PayloadAction<string>) => {

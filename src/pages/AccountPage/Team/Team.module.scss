@@ -4,9 +4,10 @@
 }
 
 .teamContainer {
-  padding: 20px;
+  padding: clamp(20px, 2vw, 100px);
   display: grid;
-  row-gap: 10px;
+  row-gap: 2vw;
+  max-width: 99%;
 }
 
 .teamPokemon {
@@ -14,12 +15,13 @@
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.43);
   padding: 0 10px;
   border-radius: 20px;
-  height: 200px;
+  height: 20vw;
+  min-height: 150px;
   display: flex;
   justify-content: space-between;
 }
 .pokemonName {
-  font-size: 30px;
+  font-size: clamp(15px, 2.5vw, 80px);
   font-weight: 700;
   padding-top: 10px;
   margin-bottom: 20px;
@@ -27,31 +29,33 @@
 .pokemonInfo {
   display: flex;
   flex-direction: column;
-  width: 200px;
+  width: 40%;
 }
 
 .imageCont {
   position: relative;
-  width: 100%;
+  width: 60%;
   overflow: hidden;
   .pokemonImage {
+    min-width: 80%;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    min-height: 280px;
     object-fit: cover;
   }
 }
 
 .types {
   display: flex;
-  gap: 5px;
+  gap: 5%;
   flex-wrap: wrap;
+
   .type {
     color: white;
-    border-radius: 20px;
-    padding: 4px 6px;
+    border-radius: 5%;
+    padding: 5% 5%;
+    font-size: clamp(15px, 1.7vw, 80px);
   }
 }
 

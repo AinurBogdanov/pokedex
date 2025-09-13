@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import type { SignInParams } from '../formsTypes';
 import { signInUser, signInWithGoogle } from '../../../firebase/api/auth';
-export function LogInForm() {
+export function LogInForm({ setFormType }: { setFormType: (type: 'signUp' | 'signIn') => void }) {
   const navigate = useNavigate();
 
   const {
@@ -31,7 +31,16 @@ export function LogInForm() {
   return (
     <>
       <form noValidate onSubmit={handleSubmit(signIn)} className={styles.form}>
-        <h1 className={styles.formHeading}>Sign In</h1>
+        <div className={styles.formHeading}>
+          <h1 className={styles.formH1}>Sign In</h1>
+          <button
+            type="button"
+            onClick={() => setFormType('signUp')}
+            className={styles.switchFormBtn}
+          >
+            Sign up ➡
+          </button>
+        </div>
         <label className={styles.formLabel}>
           <span>
             Password
@@ -70,9 +79,10 @@ export function LogInForm() {
         </label>
         <div className={styles.submitBtnCont}>
           <button className={styles.submitBtn + ' btn'}>Submit</button>
-          <button type="button" onClick={onSignInWithGoogle} className={styles.submitBtn + ' btn'}>
-            Sign in with Google
-          </button>
+          <div onClick={onSignInWithGoogle} className={styles.googleVer}>
+            <img className={styles.googleLogo} src="/images/google_logo.png" alt="" />
+            Continue with Google
+          </div>
         </div>
       </form>
     </>

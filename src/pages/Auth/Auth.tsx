@@ -10,15 +10,11 @@ export default function Auth() {
 
   return (
     <div className={styles.authWrap}>
-      <div className={styles.authControl}>
-        <button onClick={() => setFormType('signUp')} className={'btn'}>
-          Sign Up
-        </button>
-        <button onClick={() => setFormType('signIn')} className={'btn'}>
-          Sign In
-        </button>
-      </div>
-      {formType === 'signUp' ? <SignUpForm /> : <LogInForm />}
+      {formType === 'signUp' ? (
+        <SignUpForm setFormType={setFormType} />
+      ) : (
+        <LogInForm setFormType={setFormType} />
+      )}
     </div>
   );
 }
