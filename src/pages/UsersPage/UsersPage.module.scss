@@ -1,7 +1,7 @@
 .wrapper {
   max-width: 1250px;
   margin: 0 auto;
-  padding: $header-height 60px 30px;
+  padding: calc(var(--header-height) + 10px) 60px 30px;
   background-color: $white-bg-color;
   min-height: 100vh;
 }

@@ -5,7 +5,7 @@
   right: 0;
   z-index: 1000;
 
-  height: $header-height;
+  height: var(--header-height);
   background-color: rgb(255, 255, 255);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.21);
   display: flex;
@@ -18,13 +18,19 @@
   margin-left: 30px;
 }
 .logo {
-  height: 100%;
+  height: 140%;
+  position: absolute;
+  left: 7%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
+
 .nav {
-  width: 30%;
+  width: 40%;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  font-size: 25px;
 }
 .accountLink {
   display: flex;
@@ -37,16 +43,40 @@
   border-radius: 50%;
 }
 
-@media (max-width: 1024px) {
-  .header {
-    height: 80px;
+@media (max-width: 500px) {
+  .logo {
+    left: 30%;
   }
 }
-
 @media (max-width: 768px) {
   .nav {
     display: none;
   }
 }
-@media (max-width: 425px) {
+@media (min-width: 500px) and (max-width: 1050px) {
+  .nav {
+    width: 50%;
+  }
+  .logo {
+    left: 20%;
+  }
+}
+@media (min-width: 1050px) and (max-width: 2500px) {
+  .nav {
+    width: 40%;
+  }
+  .logo {
+    left: 15%;
+  }
+}
+@media (min-width: 1900px) {
+  .nav {
+    width: 38%;
+  }
+  .nav {
+    font-size: 3rem;
+  }
+  .logo {
+    left: 6%;
+  }
 }

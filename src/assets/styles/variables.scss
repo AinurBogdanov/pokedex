@@ -1,3 +1,7 @@
+:root {
+  --header-height: 100px;
+}
+
 $blue-bg-color: #30a7d7;
 $gray-bg-color: rgb(192, 191, 191);
 $light-gray-bg-color: rgb(233, 233, 233);
@@ -9,3 +13,14 @@ $white-text-color: white;
 $gray-text-color: gray;
 
 $header-height: 100px;
+
+@media (min-width: 2500px) {
+  :root {
+    --header-height: 120px;
+  }
+}
+@media (min-width: 2800px) {
+  :root {
+    --header-height: 130px;
+  }
+}

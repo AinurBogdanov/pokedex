@@ -2,7 +2,7 @@
   min-height: 100dvh;
   max-width: 1250px;
   margin: 0 auto;
-  padding-top: $header-height;
+  padding-top: calc(var(--header-height) + 10px);
   background-color: $white-bg-color;
   background-image: url(/images/container_bg.png);
 }

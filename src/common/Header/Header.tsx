@@ -23,13 +23,13 @@ export function Header() {
         </Link>
         <Link className={styles.link + ' ' + styles.accountLink} to="/account">
           Account
-          <div className={styles.avatarImageCont}>
+          {/* <div className={styles.avatarImageCont}>
             <img
               className={styles.userAvatar}
               src={user.photoURL ? user.photoURL : '/images/avatarPlaceholder.jpg'}
               alt=""
             />
-          </div>
+          </div> */}
         </Link>
       </div>
     </div>
