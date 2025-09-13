@@ -13,7 +13,7 @@ export function PokemonPageHeader({ pokemon }: { pokemon: Pokemon }) {
   return (
     <header className={styles.headerPage}>
       <h1 className={styles.pagePagination}>
-        {previousPokemonData && (
+        {previousPokemonData ? (
           <span
             onClick={() => navigate(`/pokemon/${previousPokemonData.data.name}`)}
             className={styles.arrowRight}
@@ -24,9 +24,11 @@ export function PokemonPageHeader({ pokemon }: { pokemon: Pokemon }) {
               {previousPokemonData.data.name}
             </p>
           </span>
+        ) : (
+          <span className={styles.arrowRight}></span>
         )}
 
-        {nextPokemonData && (
+        {nextPokemonData ? (
           <span
             onClick={() => navigate(`/pokemon/${nextPokemonData.data.name}`)}
             className={styles.arrowLeft}
@@ -37,6 +39,8 @@ export function PokemonPageHeader({ pokemon }: { pokemon: Pokemon }) {
               {nextPokemonData.data.name}
             </p>
           </span>
+        ) : (
+          <span className={styles.arrowLeft}></span>
         )}
       </h1>
       <div className={styles.nameAndNumber}>

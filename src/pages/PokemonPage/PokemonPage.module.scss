@@ -291,9 +291,11 @@
   border-top: 10px solid white;
   transform: rotate(45deg);
 }
-@media (max-width: 1000px) {
-  .mainContent {
-    width: 95%;
+
+@media (min-width: 2000px) {
+  .pageWrap {
+    min-height: 100dvh;
+    max-width: 1500px;
   }
 }
 @media (max-width: 768px) {
@@ -348,5 +350,72 @@
     height: 280px;
     margin-bottom: 30px;
     justify-content: start;
+  }
+}
+
+@media (min-width: 2000px) {
+  .pageWrap {
+    min-height: 100dvh;
+    max-width: 1500px;
+    font-size: 25px;
+  }
+
+  .statName {
+    height: 30px;
+    width: fit-content;
+    transform: rotate(-50deg) translateX(-40%);
+    position: relative;
+    color: black;
+    font-weight: 700;
+  }
+  .stats {
+    height: 400px;
+    margin-bottom: 30px;
+    justify-content: start;
+  }
+  .statBox {
+    height: 83%;
+  }
+  .statHeading {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+  .nameAndNumber {
+    font-weight: 700;
+    font-size: 60px;
+  }
+  .headerPage {
+    height: 200px;
+  }
+  .arrowBg {
+    width: 65px;
+    height: 65px;
+    opacity: 0.9;
+    top: 25px;
+  }
+  .info {
+    height: 400px;
+    font-size: 35px;
+    border-radius: 10px;
+    padding: 15px 20px;
+  }
+  .types {
+    gap: 30px;
+  }
+  .type {
+    height: 50px;
+    line-height: 50px;
+    font-size: 30px;
+    max-width: 190px;
+  }
+  .addMFButton {
+    font-size: 30px;
+    width: 300px;
+    height: 75px;
+  }
+  .evolutionPokemonImage {
+    max-width: 190px;
+    max-height: 190px;
   }
 }
