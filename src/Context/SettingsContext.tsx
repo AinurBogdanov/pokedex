@@ -20,7 +20,7 @@ const SettingsContext = createContext<SettingsContextType | undefined>(undefined
 
 export function SettingsProvider({ children }: { children: React.ReactNode }) {
   const user = useSelector(selectUser);
-  const { displayName, email, phoneNumber, city } = user;
+  const { displayName, email, phoneNumber, city, darkTheme } = user;
 
   React.useEffect(() => {
     if (user) {
@@ -29,7 +29,7 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
         email: user.email || '',
         phoneNumber: user.phoneNumber || '',
         city: user.city || '',
-        darkTheme: false,
+        darkTheme: user.darkTheme || false,
       });
     }
   }, [user]);
@@ -39,7 +39,7 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     email: email || '',
     phoneNumber: phoneNumber || '',
     city: city || '',
-    darkTheme: false,
+    darkTheme: darkTheme || false,
   });
 
   return (

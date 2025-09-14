@@ -2,7 +2,7 @@
   min-height: 100dvh;
   width: 100%;
   margin: 0 auto;
-  background-color: $white-bg-color;
+  background-color: var(--bg-color);
   background-image: url(/images/bg-pokemons.avif);
   background-repeat: no-repeat;
   background-size: cover;

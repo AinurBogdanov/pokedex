@@ -8,9 +8,17 @@ import Account from './pages/AccountPage/AccountPage';
 import { useAuthUser } from './firebase/hooks/useAuthUser';
 import { Users } from './pages/UsersPage/UsersPage';
 import { SettingsProvider } from './Context/SettingsContext';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { selectIsDarkTheme } from './redux/user/userSlice';
 
 function App() {
   const userLoading = useAuthUser();
+  const darkTheme = useSelector(selectIsDarkTheme);
+
+  React.useEffect(() => {
+    document.body.classList.toggle('dark', darkTheme);
+  }, [darkTheme, userLoading]);
 
   if (userLoading) return <>Loading...</>;
 

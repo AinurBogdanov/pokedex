@@ -2,7 +2,7 @@
   max-width: 1250px;
   margin: 0 auto;
   padding-top: var(--header-height);
-  background-color: $white-bg-color;
+  background-color: var(--bg-color);
   min-height: 100vh;
   display: grid;
   grid-template-columns: 0.3fr 1fr;
@@ -10,6 +10,10 @@
   grid-template-areas:
     'heading heading'
     'sideBar content';
+  color: var(--text-color);
+  a {
+    color: var(--text-color);
+  }
 }
 .heading {
   grid-area: heading;
@@ -86,7 +90,7 @@
 .personalInfo {
   grid-area: personalInfo;
   padding: 20px;
-  box-shadow: -2px 1px 3px 1px rgba(0, 0, 0, 0.616);
+  box-shadow: -2px 1px 3px 1px rgba(8, 8, 8, 0.649);
   display: flex;
   flex-direction: column;
   height: 100%;

@@ -1,16 +1,42 @@
 :root {
+  --text-color: black;
   --header-height: 100px;
+  --bg-color: white;
+  --pokemon-card-bg-color: white;
+  --pokemon-allInfo-bg-color: white;
+  // pokemon page
+  --arrow-color: #acacac;
+  --light-color: white;
+  --gray-text-color: gray;
+  --gray-bg-color: rgb(192, 191, 191);
+  --stat-fill-color: rgb(63, 120, 233);
+  --blue-bg-color: #30a7d7;
+  //usersPage
+  --user-card-bg-color: rgb(240, 240, 240);
+  --small-pokemon-color: #edfcff;
+}
+.dark {
+  --text-color: rgba(234, 234, 234, 0.875);
+  --bg-color: #1c1818;
+  --pokemon-card-bg-color: rgba(41, 40, 42, 0.799);
+  --pokemon-allInfo-bg-color: rgba(13, 13, 26, 0.991);
+  --gray-text-color: rgb(197, 197, 197);
+  // pokemon page
+  --arrow-color: #5a5a5a;
+  --light-color: rgb(197, 197, 197);
+  --gray-bg-color: rgb(45, 45, 45);
+  --stat-fill-color: rgb(0, 67, 201);
+  --blue-bg-color: #0e6080;
+  //usersPage
+  --user-card-bg-color: rgba(41, 40, 42, 0.799);
+  --small-pokemon-color: rgb(0, 0, 0);
 }
 
-$blue-bg-color: #30a7d7;
-$gray-bg-color: rgb(192, 191, 191);
 $light-gray-bg-color: rgb(233, 233, 233);
-$white-bg-color: white;
 
 $blue: rgb(0, 132, 255);
 
 $white-text-color: white;
-$gray-text-color: gray;
 
 $header-height: 100px;
 

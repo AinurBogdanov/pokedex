@@ -22,12 +22,12 @@ export function useAuthUser() {
 
         getAndSaveUser(uid, dispatch).then(() => {
           navigate('/');
+          setUserLoading(false);
         });
-      }
-      if (!currentUser) {
+      } else {
         console.log('current user нема');
+        setUserLoading(false);
       }
-      setUserLoading(false);
     });
 
     return () => unsubscribe();

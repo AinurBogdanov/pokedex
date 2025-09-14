@@ -8,6 +8,7 @@ const initialUserState: LocalUser = {
   email: '',
   photoURL: '',
   team: {},
+  darkTheme: false,
 };
 
 export const userSlice = createSlice({
@@ -26,6 +27,9 @@ export const userSlice = createSlice({
     updateUser: (_, action: PayloadAction<LocalUser>) => {
       return action.payload;
     },
+    updateTheme: (state, action: PayloadAction<boolean>) => {
+      state.darkTheme = action.payload;
+    },
   },
 });
 
@@ -33,6 +37,8 @@ export const selectUser = (state: RootState) => state.user;
 export const selectIsUserExist = (state: RootState) => !!state.user.uid;
 export const selectTeam = (state: RootState) => state.user.team;
 export const selectUserId = (state: RootState) => state.user.uid;
+export const selectIsDarkTheme = (state: RootState) => !!state.user.darkTheme;
 
 export const userReducer = userSlice.reducer;
-export const { addUser, changeUserPicture, updateTeam, updateUser } = userSlice.actions;
+export const { addUser, changeUserPicture, updateTeam, updateUser, updateTheme } =
+  userSlice.actions;

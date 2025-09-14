@@ -1,8 +1,9 @@
 .wrapper {
+  color: var(--text-color);
   max-width: 1250px;
   margin: 0 auto;
   padding-top: calc(var(--header-height) + 10px);
-  background-color: white;
+  background-color: var(--bg-color);
   min-height: 100vh;
 }
 
@@ -17,10 +18,10 @@
   position: relative;
 }
 .pokemonCard {
-  min-width: 290px;
+  min-width: 305px;
   position: relative;
   z-index: 10;
-  background-color: rgb(246, 246, 246);
+  background-color: var(--pokemon-card-bg-color);
 
   display: flex;
   align-items: center;
@@ -34,7 +35,7 @@
     font-size: 20px;
   }
   .pokemonId {
-    color: $gray-text-color;
+    color: var(--text-color);
     font-size: 20px;
   }
   .pokeCardImageAndId {
@@ -59,7 +60,7 @@
 // all info
 .allInfo {
   position: absolute;
-  background-color: rgb(246, 246, 246);
+  background-color: var(--pokemon-allInfo-bg-color);
   z-index: 100;
   // border-radius: 5px;
 

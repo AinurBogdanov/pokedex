@@ -1,17 +1,24 @@
 import styles from './Settings.module.scss';
 import { useSettings, type Settings } from '../../../Context/SettingsContext';
+import { useDispatch } from 'react-redux';
+import { updateTheme } from '../../../redux/user/userSlice';
 
 export function InputToggleSection({ param }: { param: keyof Pick<Settings, 'darkTheme'> }) {
   const { settings, setSettings } = useSettings();
+  const dispatch = useDispatch();
 
   function onToggleTheme() {
-    const changedTheme = !settings[param];
-    setSettings((prev) => ({ ...prev, [param]: changedTheme }));
+    setSettings((prev) => {
+      setTimeout(() => {
+        dispatch(updateTheme(!prev[param]));
+      }, 400);
 
-    console.log(settings);
-    // setSettings(updatedSettings);
+      return { ...prev, [param]: !prev[param] };
+    });
+    // setSettings(updateSettings);
   }
 
+  //settings полсле сохранения равны false
   return (
     <>
       <div className={styles.section}>
@@ -21,7 +28,7 @@ export function InputToggleSection({ param }: { param: keyof Pick<Settings, 'dar
           <input
             onChange={onToggleTheme}
             type="checkbox"
-            checked={!settings[param]}
+            checked={settings[param]}
             className={styles.toggleInput}
           />
           <div className={styles.toggleControl}></div>

@@ -11,7 +11,7 @@
 
   .teamPokemon {
     position: relative;
-    background-color: rgb(246, 246, 246);
+    background-color: var(--pokemon-card-bg-color);
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.43);
     padding: 0 10px;
     border-radius: 20px;
