@@ -1,9 +1,10 @@
 import { getDatabase, ref, get, update } from 'firebase/database';
 import type { AppDispatch } from '../../redux/store';
-import { addUser, changeUserPicture, updateTeam } from '../../redux/user/userSlice';
+import { addUser, changeUserPicture, updateTeam, updateUser } from '../../redux/user/userSlice';
 import { app } from '../firebase';
 import { addUsers } from '../../redux/users/usersSlice';
 import type { PokemonId, Team, UserId } from '../../redux/@types';
+import type { Settings } from '../../Context/SettingsContext';
 
 const db = getDatabase(app);
 
@@ -16,8 +17,9 @@ export async function getAndSaveUser(uid: string, dispatch: AppDispatch) {
     if (snapshot.exists()) {
       const user = snapshot.val();
       user.uid = uid;
-      console.log(user);
-      await dispatch(addUser(user));
+
+      update(userRef, user);
+      await dispatch(addUser(user)); // added user from db to redux
     } else {
       console.log('No data available');
     }
@@ -126,5 +128,28 @@ export async function getAllUsers(dispatch: AppDispatch) {
     }
   } catch (error) {
     console.error(error, 'som went wrong');
+  }
+}
+export async function updateUserInfo(
+  changes: Partial<Settings>,
+  uid: UserId,
+  dispatch: AppDispatch,
+) {
+  const userRef = ref(db, 'users/' + uid);
+  const snapshot = await get(userRef);
+
+  if (snapshot.exists()) {
+    const userData = snapshot.val();
+    const changedFields = Object.keys(changes) as (keyof Settings)[];
+
+    changedFields.map((field) => {
+      userData[field] = changes[field];
+    });
+
+    const updatedUser = userData; // userData нет uid
+
+    await update(userRef, updatedUser);
+    console.log(updatedUser);
+    dispatch(updateUser(updatedUser));
   }
 }

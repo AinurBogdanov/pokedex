@@ -10,6 +10,14 @@ export function UserCard({ userId }: { userId: UserId }) {
   const team = user.team || {};
   const pokemonsIds = Object.keys(team).map((key) => team[key].pokemonId);
 
+  function Pokemons() {
+    const pokemonAndPlaceholders = Array.from({ length: 6 }, (_, i) => pokemonsIds[i] ?? -1);
+
+    return pokemonAndPlaceholders.map((id, i) => (
+      <SmallPokemon key={id !== -1 ? id : `placeholder-${i}`} pokemonId={id} />
+    ));
+  }
+
   return (
     <div className={styles.userCard}>
       <div className={styles.userCard__info}>
@@ -24,11 +32,7 @@ export function UserCard({ userId }: { userId: UserId }) {
           <div className={styles.email}>{user.email}</div>
         </div>
       </div>
-      <div className={styles.userCard__pokemonsCont}>
-        {pokemonsIds.map((id) => (
-          <SmallPokemon key={id} pokemonId={id} />
-        ))}
-      </div>
+      <div className={styles.userCard__pokemonsCont}>{<Pokemons />}</div>
     </div>
   );
 }

@@ -66,7 +66,7 @@
   .userCard__pokemonsCont {
     flex: 1;
     padding: 10px;
-    background-color: rgba(190, 190, 190, 0.486);
+    background-color: rgba(154, 164, 193, 0.17);
     border-radius: 10px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -80,12 +80,36 @@
       border: 1px solid gray;
       border-radius: 50%;
       overflow: hidden;
-      .smallPokemonImage {
-        width: 100%;
+      background-color: #edfcff;
+      .placeAddToTeamHolder {
+        transform: scale(1.4);
+        background-color: #edfcff;
+        object-position: center;
+        object-fit: cover;
         height: 100%;
+        width: 100%;
+        // &::after {
+        //   content: '';
+        //   width: 40%;
+        //   height: 40%;
+        //   background-image: url(/images/cross_blue.png);
+        //   position: absolute;
+        //   top: 50%;
+        //   left: 50%;
+        //   transform: translateY(-50%) translateX(-50%) rotate(45deg);
+        //   background-size: cover;
+        //   cursor: pointer;
+        // }
+        .imagePlaceholder {
+          opacity: 0;
+          width: 100%;
+        }
+      }
+      .smallPokemonImage {
         transform: scale(1.4);
         object-position: center;
         object-fit: cover;
+        width: 100%;
       }
     }
   }
@@ -120,6 +144,18 @@
     grid-template-columns: repeat(1, 1fr);
   }
 }
+@media (max-width: 340px) {
+  .smallPokemon {
+    .placeAddToTeamHolder {
+      max-height: 65px;
+      max-width: 65px;
+    }
+    .smallPokemonImage {
+      max-height: 65px;
+      max-width: 65px;
+    }
+  }
+}
 
 @media (min-width: 1600px) {
   .wrapper {
@@ -129,7 +165,5 @@
 @media (min-width: 2500px) {
   .wrapper {
     padding: calc(var(--header-height) + 10px) 60px 30px;
-  }
-  .userCard {
   }
 }

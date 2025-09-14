@@ -1,43 +1,39 @@
+import { useSettings, type Settings } from '../../../Context/SettingsContext';
 import settingsStyles from './Settings.module.scss';
 import React from 'react';
 
-export function InputSection({ param, value }: { param: string; value: string }) {
-  const [text, setText] = React.useState(value);
-  const [isEditing, setIsEditing] = React.useState(false);
-  const [draftText, setDraftText] = React.useState(text);
+export function InputSection<K extends keyof Omit<Settings, 'darkTheme'>>({
+  param,
+  placeholder,
+  editable,
+}: {
+  param: K;
+  placeholder?: string;
+  editable: boolean;
+}) {
   const inputRef = React.useRef(null);
-
-  React.useEffect(() => {
-    if (isEditing) {
-      inputRef.current?.focus();
-    } else setDraftText(text);
-  }, [isEditing]);
-
-  function onEditBtn() {
-    setIsEditing(!isEditing);
-  }
+  const { settings, setSettings } = useSettings();
 
   function handleInputChange(e) {
-    if (isEditing) {
-      setDraftText(e.target.value);
+    if (editable) {
+      setSettings((prev) => ({ ...prev, [param]: e.target.value }));
     }
   }
+
+  const value = settings[param];
 
   return (
     <div className={settingsStyles.section}>
       {param}
       <input
         ref={inputRef}
-        className={settingsStyles.input}
+        className={settingsStyles.input + ' ' + (editable ? settingsStyles.editable : '')}
         type="text"
-        placeholder="name"
-        value={draftText}
+        placeholder={placeholder}
+        value={value}
         onChange={handleInputChange}
-        disabled={!isEditing}
+        disabled={editable === false}
       />
-      <span onClick={onEditBtn} className={settingsStyles.editBtn}>
-        {isEditing ? 'Reset' : 'Edit'}
-      </span>
     </div>
   );
 }

@@ -2,10 +2,13 @@ import React from 'react';
 import styles from './Mobile.module.scss';
 import { Link, useNavigate } from 'react-router';
 import { signOutUser } from '../../firebase/api/auth';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../redux/user/userSlice';
 
 export function MobileMenu() {
   const [isActive, setIsActive] = React.useState(false);
   const navigate = useNavigate();
+  const user = useSelector(selectUser);
 
   function handleLinkClick() {
     setIsActive(false);
@@ -40,15 +43,11 @@ export function MobileMenu() {
       <div className={styles.mobileMenuContent + ' ' + (isActive ? styles.active : '')}>
         <div className={styles.profileSmall}>
           <div className={styles.profileImageCont}>
-            <img
-              className={styles.profileImage}
-              src="https://i.ibb.co/Z1RyJkBp/IMG-6646.jpg"
-              alt=""
-            />
+            <img className={styles.profileImage} src={user.photoURL as string} alt="" />
           </div>
           <div className={styles.info}>
-            <div className={styles.displayName}>Ainur Bogdanov</div>
-            <div className={styles.email}>ainurbogdanov69@gmail.com</div>
+            <div className={styles.displayName}>{user.displayName}</div>
+            <div className={styles.email}>{user.email}</div>
           </div>
         </div>
         <nav className={styles.mobileNav}>

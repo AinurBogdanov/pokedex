@@ -23,6 +23,9 @@ export const userSlice = createSlice({
     updateTeam: (state, action: PayloadAction<Team>) => {
       state.team = action.payload;
     },
+    updateUser: (_, action: PayloadAction<LocalUser>) => {
+      return action.payload;
+    },
   },
 });
 
@@ -32,4 +35,4 @@ export const selectTeam = (state: RootState) => state.user.team;
 export const selectUserId = (state: RootState) => state.user.uid;
 
 export const userReducer = userSlice.reducer;
-export const { addUser, changeUserPicture, updateTeam } = userSlice.actions;
+export const { addUser, changeUserPicture, updateTeam, updateUser } = userSlice.actions;

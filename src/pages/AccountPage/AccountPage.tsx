@@ -3,6 +3,7 @@ import styles from './AccountPage.module.scss';
 import { Account } from './Account/Account';
 import { Settings } from './Settings/Settings';
 import { Team } from './Team/Team';
+import { signOutUser } from '../../firebase/api/auth';
 
 export default function AccountPage() {
   const params = useParams();
@@ -16,6 +17,11 @@ export default function AccountPage() {
     })
     .join(' ');
 
+  function onSignOut(): void {
+    if (confirm('do you want to sign out') === true) {
+      signOutUser();
+    }
+  }
   return (
     <div className={styles.wrapper}>
       <div className={styles.heading}>
@@ -46,6 +52,10 @@ export default function AccountPage() {
         >
           Settings
         </Link>
+
+        <button className={styles.signOutBtn + ' btn'} onClick={onSignOut}>
+          Sign out
+        </button>
       </aside>
 
       <Routes>

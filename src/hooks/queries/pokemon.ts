@@ -49,7 +49,7 @@ export function usePokemonById(id?: number) {
   return useQuery({
     queryKey: ['pokemon', id],
     queryFn: () => fetchPokemonById(id),
-    enabled: !!id,
+    enabled: !!id && id !== -1,
   });
 }
 

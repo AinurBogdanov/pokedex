@@ -7,6 +7,7 @@ import PrivateRoutes from './guard/PrivateRoutes';
 import Account from './pages/AccountPage/AccountPage';
 import { useAuthUser } from './firebase/hooks/useAuthUser';
 import { Users } from './pages/UsersPage/UsersPage';
+import { SettingsProvider } from './Context/SettingsContext';
 
 function App() {
   const userLoading = useAuthUser();
@@ -15,18 +16,20 @@ function App() {
 
   return (
     <>
-      <Routes>
-        <Route path={'/auth'} element={<Auth />} />
+      <SettingsProvider>
+        <Routes>
+          <Route path={'/auth'} element={<Auth />} />
 
-        <Route element={<PrivateRoutes />}>
-          <Route path="/" element={<Layout />}>
-            <Route path="/" element={<PokemonsPage />} />
-            <Route path="/pokemon/:name" element={<PokemonPage />} />
-            <Route path="/users" element={<Users />} />
-            <Route path="/account/*" element={<Account />} />
+          <Route element={<PrivateRoutes />}>
+            <Route path="/" element={<Layout />}>
+              <Route path="/" element={<PokemonsPage />} />
+              <Route path="/pokemon/:name" element={<PokemonPage />} />
+              <Route path="/users" element={<Users />} />
+              <Route path="/account/*" element={<Account />} />
+            </Route>
           </Route>
-        </Route>
-      </Routes>
+        </Routes>
+      </SettingsProvider>
     </>
   );
 }

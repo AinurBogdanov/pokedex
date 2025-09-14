@@ -10,4 +10,5 @@ export type UserId = string;
 export type LocalUser = {
   city?: string;
   team?: Team;
+  darkTheme?: boolean;
 } & Partial<UserInfo>;

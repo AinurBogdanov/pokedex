@@ -5,7 +5,34 @@
 }
 
 .settingsCont {
-  padding: clamp(6px, 5vw, 60px);
+  position: relative;
+  padding: clamp(6px, 5vw, 100px);
+
+  .settingsController {
+    width: clamp(60px, 12vw, 200px);
+    position: absolute;
+    top: 0.5vw;
+    right: 0.5vw;
+    display: flex;
+    justify-content: space-between;
+    .controlBtn {
+      width: 25%;
+      border: none;
+      cursor: pointer;
+      border: none;
+      background-color: white;
+    }
+    .editBtn {
+      width: 30%;
+      cursor: pointer;
+      border: none;
+      display: block;
+      padding: auto;
+      background-color: yellow;
+      color: black;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.748);
+    }
+  }
 }
 .section {
   position: relative;
@@ -21,16 +48,13 @@
   border: none;
   cursor: default;
   background-color: transparent;
+  user-select: none;
   &:focus {
     outline: none;
   }
 }
-.editBtn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: green;
-  cursor: pointer;
+.input.editable {
+  color: rgb(2, 1, 17);
 }
 
 //settings toggle

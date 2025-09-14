@@ -46,7 +46,7 @@ export const fetchWithPagination = async ({
 };
 
 export const fetchPokemonById = (id?: number) => {
-  if (!id) return Promise.reject('id is not provided');
+  if (!id || id === -1) return Promise.reject('id is not provided');
   return api<Pokemon>({
     url: `/pokemon/${id}`,
     method: 'get',
