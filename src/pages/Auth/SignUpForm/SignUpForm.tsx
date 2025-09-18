@@ -1,20 +1,26 @@
 import styles from '../Auth.module.scss';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import type { AppDispatch } from '../../../redux/store';
 import { useDispatch } from 'react-redux';
-import { registerUser, signInWithGoogle } from '../../../firebase/api/auth';
+import { registerUser } from '../../../firebase/api/auth';
 import type { SignUpParams } from '../formsTypes';
+import { useGoogleAuth } from '../../../firebase/hooks/useGoogleAuth';
 
 export function SignUpForm({ setFormType }: { setFormType: (type: 'signUp' | 'signIn') => void }) {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const { signInWithGoogle } = useGoogleAuth();
+  const location = useLocation();
 
-  // console.log('@', googleAuthProvider);
   function onSignUpWithGoogle() {
-    signInWithGoogle('SignUp').then(() => {
-      navigate('/');
-    });
+    signInWithGoogle('SignUp')
+      .then(() => {
+        const from = location.state?.from?.pathname || '/';
+        console.log(`redirect to ${from} `);
+        navigate(from, { replace: true });
+      })
+      .catch((error) => console.log('failed login', error));
   }
 
   const {

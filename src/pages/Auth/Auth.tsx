@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Auth.module.scss';
 import { SignUpForm } from './SignUpForm/SignUpForm';
-import { LogInForm } from './LoginForm/LoginForm';
+import { SignInForm } from './SignInForm/SignInForm';
 
 type FormType = 'signIn' | 'signUp';
 
@@ -13,7 +13,7 @@ export default function Auth() {
       {formType === 'signUp' ? (
         <SignUpForm setFormType={setFormType} />
       ) : (
-        <LogInForm setFormType={setFormType} />
+        <SignInForm setFormType={setFormType} />
       )}
     </div>
   );

@@ -3,13 +3,12 @@ import type { AppDispatch } from '../../redux/store';
 import { useDispatch } from 'react-redux';
 import React from 'react';
 import { getAndSaveUser } from '../api/db';
-import { useNavigate } from 'react-router';
+import { logout, setIsUserLoading } from '../../redux/user/userSlice';
 
 export function useAuthUser() {
   const [userLoading, setUserLoading] = React.useState<boolean>(false);
 
   const auth = getAuth();
-  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   // нужна для диспатча юзера при перезагрузке
 
@@ -18,14 +17,17 @@ export function useAuthUser() {
       setUserLoading(true);
 
       if (currentUser) {
+        console.log('useAuthUser:  user does exists');
         const { uid } = currentUser;
 
         getAndSaveUser(uid, dispatch).then(() => {
-          navigate('/');
+          dispatch(setIsUserLoading(false));
           setUserLoading(false);
         });
       } else {
-        console.log('current user нема');
+        console.log('useAuthUser:  user does`t exists');
+        dispatch(logout());
+        dispatch(setIsUserLoading(false));
         setUserLoading(false);
       }
     });

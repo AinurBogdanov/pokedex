@@ -9,6 +9,7 @@ const initialUserState: LocalUser = {
   photoURL: '',
   team: {},
   darkTheme: false,
+  isLoading: true,
 };
 
 export const userSlice = createSlice({
@@ -30,15 +31,37 @@ export const userSlice = createSlice({
     updateTheme: (state, action: PayloadAction<boolean>) => {
       state.darkTheme = action.payload;
     },
+    setIsUserLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+    },
+    logout: () => {
+      return {
+        displayName: '',
+        email: '',
+        photoURL: '',
+        team: {},
+        darkTheme: false,
+        isLoading: false,
+      };
+    },
   },
 });
-
-export const selectUser = (state: RootState) => state.user;
+//auth
 export const selectIsUserExist = (state: RootState) => !!state.user.uid;
+export const selectIsUserLoading = (state: RootState) => !!state.user.isLoading;
+//
+export const selectUser = (state: RootState) => state.user;
 export const selectTeam = (state: RootState) => state.user.team;
 export const selectUserId = (state: RootState) => state.user.uid;
 export const selectIsDarkTheme = (state: RootState) => !!state.user.darkTheme;
 
 export const userReducer = userSlice.reducer;
-export const { addUser, changeUserPicture, updateTeam, updateUser, updateTheme } =
-  userSlice.actions;
+export const {
+  logout,
+  setIsUserLoading,
+  addUser,
+  changeUserPicture,
+  updateTeam,
+  updateUser,
+  updateTheme,
+} = userSlice.actions;

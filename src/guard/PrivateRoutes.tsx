@@ -1,15 +1,24 @@
-import { Navigate, Outlet } from 'react-router';
+import { Navigate, Outlet, useLocation } from 'react-router';
 import { useSelector } from 'react-redux';
-import { selectIsUserExist } from '../redux/user/userSlice';
+import { selectIsUserExist, selectIsUserLoading } from '../redux/user/userSlice';
 
 const PrivateRoutes = () => {
   const userExist = useSelector(selectIsUserExist);
+  const userLoading = useSelector(selectIsUserLoading);
+  const location = useLocation();
 
-  if (!userExist) {
-    console.log('usera nema bro');
+  if (userLoading) {
+    console.log('user is loading');
+    return 'Loading...';
   }
 
-  return userExist ? <Outlet /> : <Navigate to="/auth" />;
+  if (!userExist && !userLoading) {
+    console.log('user does`t exist');
+
+    return <Navigate to="/auth" state={{ from: location }} replace />;
+    // return 'navigated to auth';
+  }
+  return <Outlet />;
 };
 
 export default PrivateRoutes;

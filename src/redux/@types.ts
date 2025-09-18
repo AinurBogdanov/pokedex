@@ -11,4 +11,5 @@ export type LocalUser = {
   city?: string;
   team?: Team;
   darkTheme?: boolean;
+  isLoading: boolean;
 } & Partial<UserInfo>;

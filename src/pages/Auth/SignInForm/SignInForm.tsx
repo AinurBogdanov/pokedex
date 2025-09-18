@@ -1,10 +1,14 @@
 import styles from '../Auth.module.scss';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import type { SignInParams } from '../formsTypes';
-import { signInUser, signInWithGoogle } from '../../../firebase/api/auth';
-export function LogInForm({ setFormType }: { setFormType: (type: 'signUp' | 'signIn') => void }) {
+import { signInUser } from '../../../firebase/api/auth';
+import { useGoogleAuth } from '../../../firebase/hooks/useGoogleAuth';
+
+export function SignInForm({ setFormType }: { setFormType: (type: 'signUp' | 'signIn') => void }) {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { signInWithGoogle } = useGoogleAuth();
 
   const {
     register,
@@ -22,10 +26,15 @@ export function LogInForm({ setFormType }: { setFormType: (type: 'signUp' | 'sig
         console.log(error);
       });
   }
+
   function onSignInWithGoogle() {
-    signInWithGoogle('SignIn').then(() => {
-      navigate('/');
-    });
+    signInWithGoogle('SignIn')
+      .then(() => {
+        const from = location.state?.from?.pathname || '/';
+        console.log(`redirect to ${from} `);
+        navigate(from, { replace: true });
+      })
+      .catch((error) => console.log('failed login', error));
   }
 
   return (

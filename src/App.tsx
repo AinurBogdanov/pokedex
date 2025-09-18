@@ -20,8 +20,6 @@ function App() {
     document.body.classList.toggle('dark', darkTheme);
   }, [darkTheme, userLoading]);
 
-  if (userLoading) return <>Loading...</>;
-
   return (
     <>
       <SettingsProvider>

@@ -68,11 +68,21 @@ export function signInWithGoogle(method: 'SignIn' | 'SignUp') {
           email,
           photoURL: photoURL,
         });
+        console.log(`@ saved user | method ${method}`);
       }
-      alert(`${method}`);
+      console.log('google authorized');
+
+      return {
+        user: userCredential.user,
+        isNewUser: method === 'SignUp',
+      };
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      console.log(error);
+      throw error;
+    });
 }
+
 export function signOutUser() {
   signOut(auth);
 }

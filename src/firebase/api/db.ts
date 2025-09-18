@@ -17,8 +17,10 @@ export async function getAndSaveUser(uid: string, dispatch: AppDispatch) {
     if (snapshot.exists()) {
       const user = snapshot.val();
       user.uid = uid;
+      user.isLoading = false;
 
       update(userRef, user);
+      // user should be localUser type
       await dispatch(addUser(user)); // added user from db to redux
     } else {
       console.log('No data available');
